@@ -1,0 +1,355 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giáo dục chính trị - Phòng Hồ Chí Minh</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #eaf3ff, #f8fbff, #e5efff);
+  color: #18345b;
+}
+
+/* TIÊU ĐỀ */
+header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 20px;
+  text-align: center;
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  box-shadow: 0 5px 18px rgba(25,65,120,0.12);
+  border-bottom: 4px solid #d6ad54;
+}
+
+header h1 {
+  color: #173d70;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* KHU VỰC CHÍNH */
+section {
+  max-width: 1100px;
+  margin: 35px auto;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 11px 19px;
+  background: #1e477c;
+  color: white;
+  text-decoration: none;
+  border-radius: 9px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(20,55,100,0.15);
+  transition: 0.25s;
+}
+
+.back-button:hover {
+  background: #2d65a5;
+  transform: translateY(-2px);
+}
+
+/* SƠ ĐỒ */
+.diagram {
+  display: grid;
+  grid-template-columns: minmax(250px, 1fr) 150px minmax(280px, 1.15fr);
+  align-items: center;
+  gap: 15px;
+  padding: 35px;
+  background: rgba(255,255,255,0.88);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(25,65,120,0.12);
+  border: 1px solid #dce8f7;
+}
+
+/* KHỐI BÊN TRÁI */
+.main-node {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+  color: white;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #153b70, #2867a7);
+  border: 3px solid #d9b65d;
+  box-shadow: 0 12px 25px rgba(20,55,100,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.main-node::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 50%;
+  top: -85px;
+  right: -65px;
+}
+
+.main-icon {
+  font-size: 4.2rem;
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.main-node h2 {
+  font-size: 1.65rem;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.main-node p {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #e4edff;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* KHU VỰC MŨI TÊN */
+.arrow-area {
+  width: 100%;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-area svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.arrow-line {
+  fill: none;
+  stroke: #c59a38;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arrow-head {
+  fill: #c59a38;
+}
+
+/* 3 NỘI DUNG BÊN PHẢI */
+.right-nodes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 105px;
+  padding: 18px 22px;
+  text-decoration: none;
+  color: #173d70;
+  background: #ffffff;
+  border: 1px solid #d9e5f5;
+  border-left: 5px solid #c69d43;
+  border-radius: 15px;
+  box-shadow: 0 5px 13px rgba(25,65,120,0.09);
+  transition: all 0.25s ease;
+}
+
+.category:hover {
+  transform: translateX(8px);
+  background: #f0f6ff;
+  border-color: #c69d43;
+  box-shadow: 0 9px 20px rgba(25,65,120,0.15);
+}
+
+.category-icon {
+  flex-shrink: 0;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  background: #eaf2ff;
+  border-radius: 15px;
+}
+
+.category-text h3 {
+  font-size: 1.15rem;
+  margin-bottom: 7px;
+  color: #173d70;
+}
+
+.category-text p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #687d99;
+}
+
+/* DÒNG CHÚ THÍCH */
+.note {
+  margin-top: 25px;
+  padding: 17px 20px;
+  text-align: center;
+  color: #526984;
+  background: rgba(255,255,255,0.75);
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+
+/* ĐIỆN THOẠI */
+@media(max-width: 800px) {
+  body {
+    padding: 12px;
+  }
+
+  header h1 {
+    font-size: 1.35rem;
+  }
+
+  .diagram {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .main-node {
+    min-height: 210px;
+  }
+
+  .main-node h2 {
+    font-size: 1.4rem;
+  }
+
+  .arrow-area {
+    height: 100px;
+  }
+
+  .arrow-area svg {
+    transform: rotate(90deg);
+    width: 100px;
+    height: 150px;
+  }
+
+  .right-nodes {
+    gap: 14px;
+  }
+
+  .category {
+    min-height: 90px;
+    padding: 14px;
+  }
+
+  .category-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 1.8rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>GIÁO DỤC CHÍNH TRỊ</h1>
+</header>
+
+<section>
+
+<a href="thuvien.html" class="back-button">⏪ Quay lại thư viện</a>
+
+<div class="diagram">
+
+  <!-- KHỐI BÊN TRÁI -->
+  <div class="main-node">
+    <div class="main-icon">🏛️</div>
+    <h2>GIÁO DỤC<br>CHÍNH TRỊ</h2>
+    <p>PHÒNG HỒ CHÍ MINH</p>
+  </div>
+
+  <!-- BA MŨI TÊN -->
+  <div class="arrow-area">
+    <svg viewBox="0 0 150 340" preserveAspectRatio="none">
+      <defs>
+        <marker id="arrowTip" markerWidth="10" markerHeight="10"
+                refX="8" refY="5" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" class="arrow-head"/>
+        </marker>
+      </defs>
+
+      <path class="arrow-line"
+            d="M5 170 C65 170, 65 55, 140 55"
+            marker-end="url(#arrowTip)"/>
+
+      <path class="arrow-line"
+            d="M5 170 L140 170"
+            marker-end="url(#arrowTip)"/>
+
+      <path class="arrow-line"
+            d="M5 170 C65 170, 65 285, 140 285"
+            marker-end="url(#arrowTip)"/>
+    </svg>
+  </div>
+
+  <!-- BA NỘI DUNG BÊN PHẢI -->
+  <div class="right-nodes">
+
+    <a href="gdct-csm.html" class="category">
+      <div class="category-icon">👥</div>
+      <div class="category-text">
+        <h3>GIÁO DỤC CSM</h3>
+        <p>Nội dung giáo dục chính trị chiến sĩ mới</p>
+      </div>
+    </a>
+
+    <a href="gdct-hsq-ch.html" class="category">
+      <div class="category-icon">🎖️</div>
+      <div class="category-text">
+        <h3>GIÁO DỤC HSQ – CH</h3>
+        <p>Nội dung giáo dục hạ sĩ quan, chiến sĩ</p>
+      </div>
+    </a>
+
+    <a href="gdct-donvi.html" class="category">
+      <div class="category-icon">🏢</div>
+      <div class="category-text">
+        <h3>GIÁO DỤC ĐƠN VỊ</h3>
+        <p>Các nội dung giáo dục chính trị tại đơn vị</p>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+<div class="note">
+  <strong>PHÒNG HỒ CHÍ MINH</strong> – Nơi tổ chức các hoạt động giáo dục chính trị, tư tưởng trong đơn vị.
+</div>
+
+</section>
+
+</body>
+</html>

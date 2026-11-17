@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản lý tài liệu - Phòng Hồ Chí Minh</title>
+<style>
+:root{--navy:#102b50;--gold:#f4c65e;--ink:#1d2b40;--muted:#64748b}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:var(--ink);background:linear-gradient(135deg,#e8f1ff,#fff7e8 55%,#e9f8f3);min-height:100vh}
+header{padding:25px 16px;text-align:center;color:#fff;background:linear-gradient(110deg,#092345,#14558a 65%,#1c7a83);border-bottom:5px solid var(--gold);box-shadow:0 8px 24px #102b5040}
+header h1{margin:0;font-size:clamp(21px,3vw,30px);letter-spacing:1px}
+header p{margin:9px 0 0;color:#ffdf91;font-size:14px}
+.container{max-width:1320px;margin:24px auto;padding:0 16px}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.btn{border:0;border-radius:11px;padding:11px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.2s;box-shadow:0 4px 12px #102b5020}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}
+.blue{background:#164d82;color:#fff}.gold{background:#f4c65e;color:#24354a}.red{background:#c83d4d;color:#fff}.green{background:#16866c;color:#fff}
+.panel{background:#ffffffed;border:1px solid #fff;border-radius:20px;padding:22px;margin-bottom:20px;box-shadow:0 12px 32px #183a6120,0 2px 7px #183a6110}
+.panel h2{font-size:18px;color:#123b66;margin:0 0 17px;padding-bottom:12px;border-bottom:2px solid #f0c45d}
+.hero-layout{display:grid;grid-template-columns:minmax(300px,1.1fr) minmax(300px,.9fr);gap:22px;align-items:center}
+.orbit-area{position:relative;min-height:390px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:18px;background:radial-gradient(circle at center,#fff 0,#f1f7ff 56%,#e7f2ff 100%)}
+.orbit{width:330px;height:330px;position:relative;max-width:95%;max-height:95%}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px dashed #9ab5d2;border-radius:50%;inset:35px}
+.orbit:after{inset:75px;border-color:#d7b75e}
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:130px;height:130px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:white;background:linear-gradient(145deg,#0e3765,#287bb0);box-shadow:0 10px 28px #174d8270;border:5px solid #fff;z-index:2}
+.core strong{font-size:15px}.core span{font-size:12px;margin-top:5px;color:#ffe39a}
+.orbit-item{position:absolute;width:91px;height:91px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:white;font-size:11px;font-weight:700;padding:8px;border:4px solid white;box-shadow:0 8px 18px #1d355b35;cursor:pointer;z-index:3;transition:.2s}
+.orbit-item:hover{transform:scale(1.09)}
+.orbit-item b{font-size:19px;margin-bottom:3px}
+.p1{left:50%;top:0;transform:translateX(-50%);background:linear-gradient(145deg,#ef7d42,#d84a50)}
+.p2{right:0;top:16%;background:linear-gradient(145deg,#7d58ce,#4a70c9)}
+.p3{right:0;bottom:16%;background:linear-gradient(145deg,#159d9a,#087c88)}
+.p4{left:50%;bottom:0;transform:translateX(-50%);background:linear-gradient(145deg,#e3a52e,#d27b27)}
+.p5{left:0;bottom:16%;background:linear-gradient(145deg,#db568b,#b83270)}
+.p6{left:0;top:16%;background:linear-gradient(145deg,#5b9b55,#287e55)}
+.orbit-item.p1:hover,.orbit-item.p4:hover{transform:translateX(-50%) scale(1.08)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{padding:16px;border-radius:16px;color:#fff;box-shadow:0 8px 18px #183a6120}
+.stat:nth-child(1){background:linear-gradient(130deg,#164d82,#2685b7)}
+.stat:nth-child(2){background:linear-gradient(130deg,#16866c,#37aa86)}
+.stat:nth-child(3){background:linear-gradient(130deg,#8156bd,#a174d4)}
+.stat:nth-child(4){background:linear-gradient(130deg,#d17a27,#edac42)}
+.stat small{opacity:.9}.stat strong{display:block;font-size:28px;margin-top:7px}
+.chart-layout{display:grid;grid-template-columns:230px 1fr;gap:22px;align-items:center}
+.donut{width:210px;height:210px;border-radius:50%;margin:auto;position:relative;background:conic-gradient(#ef7d42 0deg 0deg,#ddd 0deg 360deg);box-shadow:inset 0 0 0 1px #ffffffaa,0 8px 20px #102b5020}
+.donut:after{content:"";position:absolute;inset:48px;border-radius:50%;background:white;box-shadow:inset 0 2px 8px #102b5010}
+.donut-label{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700}
+.donut-label strong{font-size:30px;color:#173d66}.donut-label span{font-size:12px;color:var(--muted)}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.legend-item{display:flex;align-items:center;gap:9px;padding:10px;border-radius:11px;background:#f5f8fc;font-size:13px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:7px}.full{grid-column:1/-1}
+label{font-size:13px;font-weight:700;color:#314761}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cad5e2;border-radius:10px;font:14px Arial;background:#fff}
+textarea{min-height:78px;resize:vertical}
+.status{margin-top:12px;padding:12px 14px;background:#edf5fc;border-radius:10px;color:#174c79;font-size:13px;white-space:pre-wrap}
+.status.error{background:#fff0f0;color:#a52b35}.status.ok{background:#eaf8f1;color:#13714f}
+.table-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:13px}
+.table-tools input{flex:1;min-width:220px}
+.table-wrap{overflow:auto;border-radius:12px;border:1px solid #e1e7ef}
+table{width:100%;border-collapse:collapse;min-width:850px}
+th{background:#153e68;color:white;padding:13px 9px;font-size:12px}
+td{padding:11px 9px;border-bottom:1px solid #e8edf3;text-align:center;font-size:13px}
+tbody tr:nth-child(even){background:#f7faff}
+td.name{text-align:left;max-width:290px;overflow-wrap:anywhere}
+.action{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.small{padding:7px 10px;font-size:12px;border-radius:8px}
+.empty{text-align:center;padding:28px;color:#758399}
+footer{text-align:center;color:#5d6b7d;padding:18px;font-size:12px}
+@media(max-width:850px){.hero-layout{grid-template-columns:1fr}.chart-layout{grid-template-columns:1fr}.legend{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.form-grid,.stats{grid-template-columns:1fr}.orbit-area{min-height:330px}.orbit{transform:scale(.86)}.legend{grid-template-columns:1fr}.panel{padding:15px}}
+</style>
+</head>
+<body>
+<header><h1>PHÒNG HỒ CHÍ MINH</h1><p>TRUNG TÂM QUẢN LÝ TÀI LIỆU – TƯ LIỆU</p></header>
+<main class="container">
+  <nav class="nav">
+    <a class="btn blue" href="index.html">← Trang chủ</a>
+    <button class="btn gold" onclick="loadDocuments()">↻ Làm mới danh sách</button>
+  </nav>
+
+  <section class="panel">
+    <h2>Không gian tài liệu</h2>
+    <div class="hero-layout">
+      <div class="orbit-area">
+        <div class="orbit">
+          <div class="core"><strong>THƯ VIỆN<br>TÀI LIỆU</strong><span id="coreCount">0 tài liệu</span></div>
+          <button class="orbit-item p1" onclick="selectCategory('01_VAN_KIEN_TAI_LIEU')"><b>📜</b>Văn kiện</button>
+          <button class="orbit-item p2" onclick="selectCategory('02_LICH_SU_TRUYEN_THONG')"><b>🏛️</b>Lịch sử</button>
+          <button class="orbit-item p3" onclick="selectCategory('03_SACH_BAO_TAP_CHI')"><b>📚</b>Sách báo</button>
+          <button class="orbit-item p4" onclick="selectCategory('04_HINH_ANH')"><b>🖼️</b>Hình ảnh</button>
+          <button class="orbit-item p5" onclick="selectCategory('05_VIDEO')"><b>🎬</b>Video</button>
+          <button class="orbit-item p6" onclick="selectCategory('06_TAI_LIEU_KHAC')"><b>🗂️</b>Tài liệu khác</button>
+        </div>
+      </div>
+      <div>
+        <div class="stats">
+          <div class="stat"><small>Tổng tài liệu</small><strong id="statTotal">0</strong></div>
+          <div class="stat"><small>Nhóm thư mục</small><strong>06</strong></div>
+          <div class="stat"><small>Đang hiển thị</small><strong id="statShown">0</strong></div>
+          <div class="stat"><small>Trạng thái kết nối</small><strong id="statConnection" style="font-size:17px">Đang kiểm tra</strong></div>
+        </div>
+        <div id="loadStatus" class="status">Đang kết nối máy chủ để lấy danh sách tài liệu…</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Biểu đồ cơ cấu tài liệu theo thư mục</h2>
+    <div class="chart-layout">
+      <div class="donut" id="donut"><div class="donut-label"><strong id="chartTotal">0</strong><span>TÀI LIỆU</span></div></div>
+      <div class="legend" id="chartLegend"></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Thêm tài liệu mới</h2>
+    <div class="form-grid">
+      <div class="field"><label>Thư mục lưu trữ *</label>
+        <select id="category">
+          <option value="">-- Chọn thư mục --</option>
+          <option value="01_VAN_KIEN_TAI_LIEU">01. Văn kiện - Tài liệu</option>
+          <option value="02_LICH_SU_TRUYEN_THONG">02. Lịch sử - Truyền thống</option>
+          <option value="03_SACH_BAO_TAP_CHI">03. Sách - Báo - Tạp chí</option>
+          <option value="04_HINH_ANH">04. Hình ảnh</option>
+          <option value="05_VIDEO">05. Video</option>
+          <option value="06_TAI_LIEU_KHAC">06. Tài liệu khác</option>
+        </select>
+      </div>
+      <div class="field"><label>Người cập nhật</label><input id="uploader" placeholder="Nhập họ tên người cập nhật"></div>
+      <div class="field full"><label>Chọn tệp *</label><input id="fileInput" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.webp,.mp4"></div>
+      <div class="field full"><label>Mô tả</label><textarea id="description" placeholder="Thông tin giới thiệu hoặc ghi chú về tài liệu"></textarea></div>
+      <div class="field full"><button class="btn blue" id="uploadButton" onclick="uploadDocument()">↑ TẢI TÀI LIỆU LÊN</button></div>
+    </div>
+    <div id="uploadStatus" class="status">Chọn thư mục và tệp để tải lên Google Drive.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Danh sách tài liệu đã lưu</h2>
+    <div class="table-tools">
+      <input id="searchInput" placeholder="Tìm theo tên tài liệu…" oninput="filterTable()">
+      <button class="btn gold" onclick="loadDocuments()">↻ Tải lại</button>
+      <button class="btn blue" onclick="selectCategory('')">Hiện tất cả</button>
+    </div>
+    <div id="currentFilter" class="status">Đang hiển thị tất cả thư mục.</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>STT</th><th>TÊN TÀI LIỆU</th><th>THƯ MỤC</th><th>NGÀY TẢI</th><th>DUNG LƯỢNG</th><th>NGƯỜI TẢI</th><th>THAO TÁC</th></tr></thead>
+        <tbody id="documentTable"><tr><td colspan="7" class="empty">Đang tải…</td></tr></tbody>
+      </table>
+    </div>
+    <div id="totalStatus" class="status">Tổng số: 0 tài liệu</div>
+  </section>
+</main>
+<footer>PHÒNG HỒ CHÍ MINH · HỆ THỐNG QUẢN LÝ TÀI LIỆU</footer>
+
+<script>
+const DOCUMENT_API = "https://script.google.com/macros/s/AKfycbwgRRXstEmITDsXwxrV_sScxHSx6ewYzp38I8LfB0EWweMxXOT7xjVoZ-vwEPtmaNPU5A/exec";
+const categories = [
+ ["01_VAN_KIEN_TAI_LIEU","Văn kiện - Tài liệu","#ef7d42"],
+ ["02_LICH_SU_TRUYEN_THONG","Lịch sử - Truyền thống","#7659c9"],
+ ["03_SACH_BAO_TAP_CHI","Sách - Báo - Tạp chí","#159d9a"],
+ ["04_HINH_ANH","Hình ảnh","#dfa12e"],
+ ["05_VIDEO","Video","#d34f86"],
+ ["06_TAI_LIEU_KHAC","Tài liệu khác","#579653"]
+];
+let currentCategory = "";
+let allDocuments = [];
+let requestSequence = 0;
+
+function jsonp(params, timeoutMs=25000) {
+ return new Promise((resolve,reject)=>{
+   const callback = "doc_cb_"+Date.now()+"_"+Math.floor(Math.random()*1e6);
+   const script = document.createElement("script");
+   let finished=false;
+   const cleanup=()=>{if(finished)return;finished=true;clearTimeout(timer);delete window[callback];script.remove();};
+   const timer=setTimeout(()=>{cleanup();reject(new Error("Máy chủ không trả dữ liệu JSONP. Kiểm tra hàm doGet và bản triển khai Web App."));},timeoutMs);
+   window[callback]=(data)=>{cleanup();resolve(data);};
+   script.onerror=()=>{cleanup();reject(new Error("Không tải được địa chỉ Web App. Kiểm tra URL triển khai và quyền truy cập."));};
+   const query=new URLSearchParams({...params,callback});
+   script.src=DOCUMENT_API+"?"+query.toString();
+   document.head.appendChild(script);
+ });
+}
+function setLoadStatus(message,type="") {
+ const el=document.getElementById("loadStatus");
+ el.textContent=message;el.className="status"+(type?" "+type:"");
+}
+function categoryName(key){return categories.find(x=>x[0]===key)?.[1]||key||"Chưa phân loại";}
+async function loadDocuments(){
+ const seq=++requestSequence;
+ document.getElementById("documentTable").innerHTML='<tr><td colspan="7" class="empty">Đang kết nối máy chủ…</td></tr>';
+ setLoadStatus("Đang yêu cầu danh sách từ Google Apps Script…");
+ document.getElementById("statConnection").textContent="Đang tải";
+ try{
+   const data=await jsonp({action:"list",category:currentCategory});
+   if(seq!==requestSequence)return;
+   if(!data||data.success!==true)throw new Error(data?.message||"Máy chủ trả về dữ liệu không hợp lệ.");
+   if(!Array.isArray(data.documents))throw new Error("API đã phản hồi nhưng không có mảng documents. Kiểm tra cấu trúc dữ liệu trong doGet(action=list).");
+   allDocuments=data.documents;
+   document.getElementById("statConnection").textContent="Đã kết nối";
+   setLoadStatus("Kết nối thành công. Đã nhận "+allDocuments.length+" tài liệu từ Google Sheets.","ok");
+   renderDocuments(allDocuments);
+   updateDashboard(allDocuments);
+   document.getElementById("currentFilter").textContent=currentCategory?"Đang lọc: "+categoryName(currentCategory):"Đang hiển thị tất cả thư mục.";
+ }catch(err){
+   if(seq!==requestSequence)return;
+   document.getElementById("statConnection").textContent="Lỗi kết nối";
+   setLoadStatus("Không lấy được danh sách tài liệu.\nChi tiết: "+err.message+"\n\nLưu ý: tải tệp thành công qua doPost không chứng minh doGet đã hoạt động. Trang danh sách cần doGet trả JSONP theo tham số callback.", "error");
+   document.getElementById("documentTable").innerHTML='<tr><td colspan="7" class="empty">Chưa tải được danh sách. Xem thông báo lỗi kết nối phía trên.</td></tr>';
+ }
+}
+function selectCategory(category){
+ currentCategory=category;
+ document.getElementById("currentFilter").textContent=category?"Đang lọc: "+categoryName(category):"Đang hiển thị tất cả thư mục.";
+ loadDocuments();
+}
+function renderDocuments(docs){
+ const body=document.getElementById("documentTable");
+ if(!docs.length){body.innerHTML='<tr><td colspan="7" class="empty">Chưa có tài liệu trong thư mục này.</td></tr>';document.getElementById("totalStatus").textContent="Tổng số: 0 tài liệu";document.getElementById("statShown").textContent="0";return;}
+ body.innerHTML=docs.map((doc,i)=>{
+  const fileId=String(doc.fileId||"");
+  const url=safeDriveUrl(doc.url);
+  return `<tr>
+   <td>${i+1}</td><td class="name">${esc(doc.name||"")}</td>
+   <td>${esc(categoryName(doc.category))}</td><td>${esc(doc.date||"")}</td>
+   <td>${esc(doc.size||"")}</td><td>${esc(doc.uploader||"")}</td>
+   <td><div class="action">${url?`<a class="btn blue small" href="${url}" target="_blank" rel="noopener">Mở file</a>`:""}
+   <button class="btn red small" onclick="deleteDocument('${escAttr(fileId)}')">🗑 Xóa</button></div></td>
+  </tr>`;
+ }).join("");
+ document.getElementById("totalStatus").textContent="Đang hiển thị: "+docs.length+" tài liệu";
+ document.getElementById("statShown").textContent=String(docs.length);
+}
+function filterTable(){
+ const key=document.getElementById("searchInput").value.toLocaleLowerCase("vi").trim();
+ const docs=allDocuments.filter(d=>String(d.name||"").toLocaleLowerCase("vi").includes(key));
+ renderDocuments(docs);
+}
+function updateDashboard(docs){
+ const total=docs.length;
+ document.getElementById("statTotal").textContent=total;
+ document.getElementById("coreCount").textContent=total+" tài liệu";
+ document.getElementById("chartTotal").textContent=total;
+ const counts=categories.map(c=>docs.filter(d=>d.category===c[0]).length);
+ let angle=0;const parts=[];
+ counts.forEach((n,i)=>{const next=angle+(total?n/total*360:0);parts.push(`${categories[i][2]} ${angle}deg ${next}deg`);angle=next;});
+ document.getElementById("donut").style.background=total?`conic-gradient(${parts.join(",")})`:"conic-gradient(#dce4ed 0deg 360deg)";
+ document.getElementById("chartLegend").innerHTML=categories.map((c,i)=>`<div class="legend-item"><span class="dot" style="background:${c[2]}"></span><span>${esc(c[1])}</span><strong style="margin-left:auto">${counts[i]}</strong></div>`).join("");
+}
+async function uploadDocument(){
+ const category=document.getElementById("category").value;
+ const file=document.getElementById("fileInput").files[0];
+ const status=document.getElementById("uploadStatus");
+ const button=document.getElementById("uploadButton");
+ if(!category){alert("Bạn chưa chọn thư mục.");return;}
+ if(!file){alert("Bạn chưa chọn tệp.");return;}
+ if(file.size>10*1024*1024){alert("Tệp vượt quá 10 MB. Hãy chọn tệp nhỏ hơn.");return;}
+ if(!/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|jpg|jpeg|png|gif|webp|mp4)$/i.test(file.name)){alert("Định dạng tệp chưa được hỗ trợ.");return;}
+ button.disabled=true;button.textContent="ĐANG TẢI LÊN…";status.textContent="Đang tải tệp lên Google Drive…";
+ try{
+  const base64=await readBase64(file);
+  const body=new URLSearchParams({
+   action:"upload",fileName:file.name,mimeType:file.type||"application/octet-stream",base64,
+   category,description:document.getElementById("description").value.trim(),
+   uploader:document.getElementById("uploader").value.trim()
+  });
+  const response=await fetch(DOCUMENT_API,{method:"POST",body});
+  const result=await response.json();
+  if(!result.success)throw new Error(result.message||"Máy chủ từ chối tải tệp.");
+  status.textContent="Tải tệp lên thành công. Đang làm mới danh sách…";status.className="status ok";
+  document.getElementById("fileInput").value="";
+  document.getElementById("description").value="";
+  currentCategory="";
+  await loadDocuments();
+ }catch(err){status.textContent="Tải lên thất bại: "+err.message;status.className="status error";alert("Lỗi tải lên: "+err.message);}
+ finally{button.disabled=false;button.textContent="↑ TẢI TÀI LIỆU LÊN";}
+}
+function readBase64(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(",")[1]);r.onerror=()=>reject(new Error("Không đọc được tệp."));r.readAsDataURL(file);});}
+async function deleteDocument(fileId){
+ if(!fileId){alert("Bản ghi này không có FILE_ID nên không thể xóa.");return;}
+ if(!confirm("Bạn chắc chắn muốn xóa tài liệu này khỏi Drive và danh sách?"))return;
+ try{
+  const body=new URLSearchParams({action:"delete",fileId});
+  const response=await fetch(DOCUMENT_API,{method:"POST",body});
+  const result=await response.json();
+  if(!result.success)throw new Error(result.message||"Không xóa được tài liệu.");
+  setLoadStatus("Đã xóa tài liệu. Đang cập nhật danh sách…","ok");
+  await loadDocuments();
+ }catch(err){alert("Lỗi xóa: "+err.message);}
+}
+function safeDriveUrl(value){try{const u=new URL(value);return u.protocol==="https:"&&["drive.google.com","docs.google.com"].includes(u.hostname)?u.href:"";}catch(e){return "";}}
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function escAttr(v){return esc(v);}
+window.addEventListener("load",loadDocuments);
+</script>
+</body>
+</html>

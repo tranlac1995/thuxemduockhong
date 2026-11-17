@@ -1,0 +1,603 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b78">
+<title>Hệ thống văn bản - Phòng Hồ Chí Minh</title>
+
+<style>
+:root {
+    --navy: #073b78;
+    --blue: #0755a5;
+    --gold: #e5bd54;
+    --light: #eaf3fc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+    color: #17385f;
+    background:
+        linear-gradient(rgba(232,242,253,.90),rgba(232,242,253,.95)),
+        url("background.jpg") center/cover fixed;
+}
+
+/* HEADER */
+
+header {
+    background: linear-gradient(110deg,#073b78,#0755a5);
+    color: white;
+    padding: 15px 25px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.18);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 55px;
+    height: 55px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+    flex-shrink: 0;
+}
+
+.header-text h1 {
+    font-size: 20px;
+}
+
+.header-text p {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #d9eaff;
+}
+
+.home-btn {
+    margin-left: auto;
+    background: white;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 17px;
+    border-radius: 9px;
+    transition: .2s;
+}
+
+.home-btn:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+}
+
+/* MAIN */
+
+main {
+    max-width: 1150px;
+    margin: auto;
+    padding: 35px 20px 45px;
+}
+
+.page-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-heading h2 {
+    color: var(--navy);
+    font-size: 27px;
+    letter-spacing: 1px;
+}
+
+.page-heading p {
+    color: #647b96;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* BACK BUTTON */
+
+.back-area {
+    margin-bottom: 25px;
+}
+
+.back-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background: var(--navy);
+    padding: 10px 17px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.back-btn:hover {
+    background: var(--blue);
+    transform: translateX(-3px);
+}
+
+/* DIAGRAM */
+
+.diagram {
+    min-height: 440px;
+    padding: 35px 20px;
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(7,85,165,.12);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,45,90,.08);
+
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 160px minmax(260px, 1fr);
+    align-items: center;
+    gap: 10px;
+}
+
+/* LEFT MAIN BOX */
+
+.main-node {
+    min-height: 245px;
+    background: linear-gradient(145deg,#0755a5,#032d61);
+    border: 5px solid var(--gold);
+    border-radius: 20px;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px 15px;
+
+    box-shadow:
+        0 12px 30px rgba(0,35,80,.22),
+        inset 0 0 20px rgba(255,255,255,.10);
+    position: relative;
+    z-index: 2;
+}
+
+.main-icon {
+    font-size: 58px;
+    margin-bottom: 15px;
+}
+
+.main-node h2 {
+    font-size: 21px;
+    line-height: 1.5;
+}
+
+.main-node p {
+    margin-top: 12px;
+    color: #ffdf86;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+}
+
+/* ARROWS */
+
+.arrow-area {
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.arrow-area svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.arrow-line {
+    fill: none;
+    stroke: #c29a35;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.arrow-dot {
+    fill: #0755a5;
+    stroke: white;
+    stroke-width: 3;
+}
+
+/* RIGHT CONTENT */
+
+.right-nodes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 35px;
+}
+
+.category {
+    min-height: 145px;
+    padding: 20px;
+    border-radius: 17px;
+    border: 2px solid #b9d2ec;
+    background: linear-gradient(145deg,#fff,#e8f2fc);
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    text-decoration: none;
+    color: var(--navy);
+
+    box-shadow: 0 6px 18px rgba(0,48,100,.09);
+    transition: .3s;
+}
+
+.category:hover {
+    transform: translateX(8px);
+    border-color: var(--gold);
+    background: linear-gradient(120deg,#0755a5,#073b78);
+    color: white;
+    box-shadow: 0 12px 28px rgba(0,48,100,.22);
+}
+
+.category-icon {
+    width: 75px;
+    height: 75px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #dceafa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39px;
+    transition: .3s;
+}
+
+.category:hover .category-icon {
+    background: rgba(255,255,255,.18);
+}
+
+.category-content h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 9px;
+}
+
+.category-content p {
+    font-size: 12px;
+    line-height: 1.6;
+    opacity: .8;
+}
+
+.category-arrow {
+    margin-left: auto;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* INFORMATION */
+
+.info-box {
+    margin-top: 28px;
+    padding: 20px 23px;
+    background: rgba(255,255,255,.88);
+    border-left: 5px solid var(--blue);
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+
+.info-box h3 {
+    color: var(--navy);
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+
+.info-box p {
+    color: #607994;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* FOOTER */
+
+footer {
+    background: #073b78;
+    color: #dceaff;
+    text-align: center;
+    padding: 17px;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* TABLET */
+
+@media(max-width:850px) {
+    .diagram {
+        grid-template-columns: minmax(200px,1fr) 90px minmax(200px,1fr);
+        padding: 25px 12px;
+    }
+
+    .main-node h2 {
+        font-size: 17px;
+    }
+
+    .category {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .category-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 30px;
+    }
+
+    .category-content h3 {
+        font-size: 16px;
+    }
+
+    .category-arrow {
+        display: none;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+    header {
+        padding: 13px;
+    }
+
+    .header-text h1 {
+        font-size: 15px;
+    }
+
+    .header-text p {
+        font-size: 10px;
+    }
+
+    .logo {
+        width: 45px;
+        height: 45px;
+        font-size: 23px;
+    }
+
+    .home-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    main {
+        padding: 25px 12px 35px;
+    }
+
+    .page-heading h2 {
+        font-size: 21px;
+    }
+
+    .diagram {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 22px 15px;
+    }
+
+    .main-node {
+        width: 100%;
+        min-height: 190px;
+    }
+
+    .main-icon {
+        font-size: 45px;
+        margin-bottom: 8px;
+    }
+
+    .main-node h2 {
+        font-size: 19px;
+    }
+
+    /* Hai mũi tên hướng xuống hai nhánh */
+
+    .arrow-area {
+        width: 100%;
+        height: 95px;
+        flex-shrink: 0;
+    }
+
+    .arrow-area svg {
+        transform: rotate(90deg);
+    }
+
+    .right-nodes {
+        width: 100%;
+        gap: 15px;
+    }
+
+    .category {
+        min-height: 110px;
+        width: 100%;
+    }
+
+    .category:hover {
+        transform: translateY(-3px);
+    }
+
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 32px;
+    }
+
+    .category-content h3 {
+        font-size: 17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <div class="logo">⚓</div>
+
+        <div class="header-text">
+            <h1>PHÒNG HỒ CHÍ MINH</h1>
+            <p>TRANG ĐIỆN TỬ QUẢN LÝ HOẠT ĐỘNG PHÒNG HỒ CHÍ MINH</p>
+        </div>
+
+        <a href="index.html" class="home-btn">
+            🏠 Trang chủ
+        </a>
+
+    </div>
+</header>
+
+<main>
+
+    <div class="page-heading">
+        <h2>HỆ THỐNG VĂN BẢN</h2>
+        <p>Quản lý - Lưu trữ - Tra cứu văn bản và nghị quyết</p>
+    </div>
+
+    <div class="back-area">
+        <a href="thuvien.html" class="back-btn">
+            ← Quay lại thư viện
+        </a>
+    </div>
+
+    <!-- SƠ ĐỒ PHÂN NHÁNH -->
+
+    <section class="diagram">
+
+        <!-- KHỐI BÊN TRÁI -->
+
+        <div class="main-node">
+
+            <div class="main-icon">📚</div>
+
+            <h2>
+                HỆ THỐNG VĂN BẢN<br>
+                PHÒNG HỒ CHÍ MINH
+            </h2>
+
+            <p>QUẢN LÝ - LƯU TRỮ - TRA CỨU</p>
+
+        </div>
+
+        <!-- HAI MŨI TÊN PHÂN NHÁNH -->
+
+        <div class="arrow-area">
+
+            <svg viewBox="0 0 160 300"
+                 preserveAspectRatio="none"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <defs>
+                    <marker id="arrowhead"
+                            markerWidth="10"
+                            markerHeight="10"
+                            refX="8"
+                            refY="5"
+                            orient="auto">
+                        <path d="M0,0 L10,5 L0,10 Z"
+                              fill="#c29a35"/>
+                    </marker>
+                </defs>
+
+                <!-- Nhánh trên -->
+                <path class="arrow-line"
+                      d="M0 150 H35 Q55 150 55 125 V75 Q55 50 80 50 H150"
+                      marker-end="url(#arrowhead)"/>
+
+                <!-- Nhánh dưới -->
+                <path class="arrow-line"
+                      d="M0 150 H35 Q55 150 55 175 V225 Q55 250 80 250 H150"
+                      marker-end="url(#arrowhead)"/>
+
+                <circle class="arrow-dot" cx="5" cy="150" r="6"/>
+
+            </svg>
+
+        </div>
+
+        <!-- HAI NỘI DUNG BÊN PHẢI -->
+
+        <div class="right-nodes">
+
+            <a href="vanban-con.html" class="category">
+
+                <div class="category-icon">📂</div>
+
+                <div class="category-content">
+                    <h3>VĂN BẢN</h3>
+                    <p>
+                        Chỉ thị - Kế hoạch<br>
+                        Hướng dẫn - Công văn
+                    </p>
+                </div>
+
+                <div class="category-arrow">›</div>
+
+            </a>
+
+            <a href="nghiquyet.html" class="category">
+
+                <div class="category-icon">📜</div>
+
+                <div class="category-content">
+                    <h3>NGHỊ QUYẾT</h3>
+                    <p>
+                        Nghị quyết cấp ủy<br>
+                        Chi bộ - Đảng bộ
+                    </p>
+                </div>
+
+                <div class="category-arrow">›</div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- GIỚI THIỆU -->
+
+    <div class="info-box">
+
+        <h3>📌 GIỚI THIỆU</h3>
+
+        <p>
+            Hệ thống văn bản là nơi lưu trữ, quản lý và khai thác
+            các văn bản lãnh đạo, chỉ đạo, hướng dẫn và nghị quyết
+            phục vụ công tác lãnh đạo, chỉ huy, quản lý, giáo dục
+            chính trị và tổ chức thực hiện nhiệm vụ của đơn vị.
+        </p>
+
+    </div>
+
+</main>
+
+<footer>
+    <strong>PHÒNG HỒ CHÍ MINH - TIỂU ĐOÀN</strong><br>
+    HỆ THỐNG QUẢN LÝ VĂN BẢN ĐIỆN TỬ<br>
+    Đoàn kết - Kỷ luật - Chính quy - Hiện đại
+</footer>
+
+</body>
+</html>

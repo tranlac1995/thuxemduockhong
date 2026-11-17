@@ -1,0 +1,1234 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản lý kế hoạch - Phòng Hồ Chí Minh</title>
+
+<style>
+:root {
+    --navy: #17365d;
+    --blue: #2869a8;
+    --gold: #d6aa55;
+    --bg: #f2f5fa;
+    --text: #26364a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* HEADER */
+
+.header {
+    background: linear-gradient(120deg, #102b4e, #2869a8);
+    color: white;
+    padding: 24px 5%;
+    box-shadow: 0 4px 15px #17365d25;
+}
+
+.header-inner {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+.header p {
+    margin: 7px 0 0;
+    color: #dce8f5;
+    font-size: 14px;
+}
+
+.home-btn {
+    text-decoration: none;
+    background: white;
+    color: var(--navy);
+    padding: 11px 19px;
+    border-radius: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.home-btn:hover {
+    background: #f5d58b;
+}
+
+/* MAIN */
+
+.container {
+    max-width: 1250px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    color: var(--navy);
+    font-size: 19px;
+    font-weight: 750;
+    margin: 0 0 18px;
+}
+
+/* SEARCH */
+
+.search-panel {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px #19395b0c;
+    margin-bottom: 30px;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1fr auto;
+    gap: 12px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #d8e0ea;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+    color: #26364a;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #3979bb;
+    box-shadow: 0 0 0 3px #3979bb18;
+}
+
+button {
+    font-family: inherit;
+}
+
+.primary-btn {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    background: var(--navy);
+}
+
+.primary-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* DANH MỤC */
+
+.category-section {
+    margin-bottom: 32px;
+}
+
+.category-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 150px 150px;
+    gap: 17px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.category {
+    border: none;
+    border-radius: 16px;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 7px 18px #17365d18;
+    transition: .2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 22px #17365d30;
+}
+
+.category .symbol {
+    font-size: 32px;
+    margin-bottom: 9px;
+}
+
+.category strong {
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.category small {
+    margin-top: 6px;
+    opacity: .85;
+}
+
+.c1 { background: linear-gradient(135deg, #2367a5, #398dc5); }
+.c2 { background: linear-gradient(135deg, #258477, #43b49c); }
+.c3 { background: linear-gradient(135deg, #b27b25, #dda94a); }
+.c4 { background: linear-gradient(135deg, #7953a6, #a17bc7); }
+.c5 { background: linear-gradient(135deg, #bd5361, #df7d82); }
+
+.center-category {
+    background: linear-gradient(145deg, #142f52, #2869a8);
+    border: 4px solid #e5bd67;
+    box-shadow: 0 8px 25px #17365d35;
+}
+
+.center-category .symbol {
+    font-size: 40px;
+}
+
+.center-category strong {
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+.center-category small {
+    color: #f8dda2;
+}
+
+/* DANH SÁCH */
+
+.result-section {
+    background: white;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0 4px 18px #19395b0c;
+    margin-bottom: 30px;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.result-count {
+    color: #718096;
+    font-size: 13px;
+}
+
+.plan-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.plan-card {
+    border: 1px solid #e2e9f1;
+    border-left: 4px solid #3979bb;
+    border-radius: 10px;
+    padding: 17px;
+    background: #fbfcfe;
+    transition: .2s;
+}
+
+.plan-card:hover {
+    border-color: #3979bb;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px #17365d18;
+}
+
+.plan-card h3 {
+    color: var(--navy);
+    font-size: 16px;
+    margin: 0 0 10px;
+}
+
+.plan-card p {
+    margin: 6px 0;
+    font-size: 13px;
+    color: #617086;
+    line-height: 1.5;
+}
+
+.plan-tag {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #e8f1fb;
+    color: #245b91;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+.view-btn {
+    margin-top: 12px;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 7px;
+    background: #e8f1fb;
+    color: #245b91;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.view-btn:hover {
+    background: #d4e6fa;
+}
+
+.empty {
+    grid-column: 1 / -1;
+    padding: 35px;
+    text-align: center;
+    color: #8793a3;
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+/* XEM CHI TIẾT */
+
+.detail-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #10243bc2;
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.detail-box {
+    max-width: 800px;
+    margin: 35px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 15px 40px #0003;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 2px solid #e5eaf0;
+    padding-bottom: 17px;
+    margin-bottom: 15px;
+}
+
+.detail-header h2 {
+    color: #17365d;
+    font-size: 20px;
+    margin: 0;
+}
+
+.close-detail {
+    border: none;
+    background: #f0f3f7;
+    border-radius: 8px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.close-detail:hover {
+    background: #e0e7ef;
+}
+
+.detail-name {
+    font-size: 22px;
+    color: #17365d;
+    font-weight: 750;
+    margin: 15px 0;
+}
+
+.detail-tag {
+    display: inline-block;
+    background: #e8f1fb;
+    color: #245b91;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.detail-item {
+    background: #f7f9fc;
+    padding: 13px;
+    border-radius: 9px;
+    min-width: 0;
+}
+
+.detail-item label {
+    display: block;
+    font-size: 12px;
+    color: #718096;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.detail-item div {
+    color: #26364a;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.detail-full {
+    grid-column: 1 / -1;
+}
+
+.detail-content {
+    background: #f7f9fc;
+    border-radius: 9px;
+    padding: 17px;
+    margin-top: 20px;
+}
+
+.detail-content h3 {
+    color: #17365d;
+    font-size: 15px;
+    margin: 0 0 12px;
+}
+
+.detail-content-text {
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: #405168;
+    font-size: 14px;
+}
+
+.detail-note {
+    background: #fff9ec;
+    border-left: 4px solid #d6aa55;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.detail-progress {
+    margin-top: 20px;
+}
+
+.progress-track {
+    height: 10px;
+    border-radius: 20px;
+    background: #e7edf4;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2869a8, #43b49c);
+    border-radius: 20px;
+}
+
+/* FORM */
+
+.upload-section {
+    background: white;
+    border-radius: 15px;
+    padding: 24px;
+    box-shadow: 0 4px 18px #19395b0c;
+    margin-bottom: 35px;
+}
+
+.upload-note {
+    color: #718096;
+    font-size: 13px;
+    margin-top: -8px;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 650;
+    font-size: 13px;
+    margin-bottom: 7px;
+    color: #34465d;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.status-message {
+    font-size: 13px;
+    color: #3979bb;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #8290a2;
+    font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 750px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-layout {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .category {
+        min-height: 125px;
+    }
+
+    .center-category {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .plan-list,
+    .form-grid,
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full,
+    .detail-full {
+        grid-column: auto;
+    }
+
+    .detail-box {
+        margin: 5px auto;
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div>
+            <h1>QUẢN LÝ KẾ HOẠCH</h1>
+            <p>PHÒNG HỒ CHÍ MINH</p>
+        </div>
+
+        <a class="home-btn" href="index.html">
+            ← QUAY LẠI TRANG CHỦ
+        </a>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- TRA CỨU -->
+
+    <section class="search-panel">
+        <h2 class="section-title">🔎 TRA CỨU KẾ HOẠCH</h2>
+
+        <div class="search-grid">
+
+            <input id="searchName"
+                   type="text"
+                   placeholder="Nhập tên hoặc nội dung kế hoạch...">
+
+            <select id="searchCategory">
+                <option value="">Tất cả danh mục</option>
+                <option value="Lịch công tác tuần">Lịch công tác tuần</option>
+                <option value="Chương trình tháng">Chương trình tháng</option>
+                <option value="Hoạt động phong trào">Hoạt động phong trào</option>
+                <option value="Kể chuyện Hồ Chí Minh">Kể chuyện Hồ Chí Minh</option>
+                <option value="Kế hoạch khác">Kế hoạch khác</option>
+            </select>
+
+            <select id="searchYear">
+                <option value="">Tất cả các năm</option>
+                <option value="2026">Năm 2026</option>
+                <option value="2027">Năm 2027</option>
+                <option value="2028">Năm 2028</option>
+            </select>
+
+            <button class="primary-btn" onclick="renderPlans()">
+                TRA CỨU
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- DANH MỤC -->
+
+    <section class="category-section">
+        <h2 class="section-title">📁 DANH MỤC KẾ HOẠCH</h2>
+
+        <div class="category-layout">
+
+            <button class="category c1"
+                onclick="chooseCategory('Lịch công tác tuần')">
+                <span class="symbol">📅</span>
+                <strong>LỊCH CÔNG TÁC TUẦN</strong>
+                <small>Xem kế hoạch tuần</small>
+            </button>
+
+            <button class="category c2"
+                onclick="chooseCategory('Chương trình tháng')">
+                <span class="symbol">📋</span>
+                <strong>CHƯƠNG TRÌNH THÁNG</strong>
+                <small>Nhiệm vụ trọng tâm</small>
+            </button>
+
+            <button class="category c3"
+                onclick="chooseCategory('Hoạt động phong trào')">
+                <span class="symbol">🏅</span>
+                <strong>HOẠT ĐỘNG PHONG TRÀO</strong>
+                <small>Thi đua và hoạt động</small>
+            </button>
+
+            <button class="category c4"
+                onclick="chooseCategory('Kể chuyện Hồ Chí Minh')">
+                <span class="symbol">📖</span>
+                <strong>KỂ CHUYỆN HỒ CHÍ MINH</strong>
+                <small>Học tập và làm theo Bác</small>
+            </button>
+
+            <button class="category center-category"
+                onclick="chooseCategory('')">
+                <span class="symbol">⭐</span>
+                <strong>KẾ HOẠCH</strong>
+                <small>TRUNG TÂM QUẢN LÝ</small>
+            </button>
+
+            <button class="category c5"
+                onclick="chooseCategory('Kế hoạch khác')">
+                <span class="symbol">📂</span>
+                <strong>KẾ HOẠCH KHÁC</strong>
+                <small>Các kế hoạch bổ sung</small>
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- DANH SÁCH KẾ HOẠCH -->
+
+    <section class="result-section" id="resultSection">
+
+        <div class="result-header">
+            <h2 class="section-title" style="margin:0">
+                📑 DANH SÁCH KẾ HOẠCH
+            </h2>
+
+            <span class="result-count" id="resultCount">
+                Đang tải dữ liệu...
+            </span>
+        </div>
+
+        <div class="plan-list" id="planList">
+            <div class="empty">Đang tải danh sách kế hoạch...</div>
+        </div>
+
+    </section>
+
+
+    <!-- THÊM KẾ HOẠCH -->
+
+    <section class="upload-section">
+
+        <h2 class="section-title">
+            ⬆️ THÊM KẾ HOẠCH MỚI
+        </h2>
+
+        <p class="upload-note">
+            Nhập thông tin kế hoạch để lưu vào hệ thống quản lý.
+        </p>
+
+        <form id="uploadForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Tên kế hoạch *</label>
+                    <input id="planName" required
+                           placeholder="Nhập tên kế hoạch">
+                </div>
+
+                <div class="form-group">
+                    <label>Loại kế hoạch *</label>
+                    <select id="planCategory" required>
+                        <option value="">-- Chọn danh mục --</option>
+                        <option value="Lịch công tác tuần">Lịch công tác tuần</option>
+                        <option value="Chương trình tháng">Chương trình tháng</option>
+                        <option value="Hoạt động phong trào">Hoạt động phong trào</option>
+                        <option value="Kể chuyện Hồ Chí Minh">Kể chuyện Hồ Chí Minh</option>
+                        <option value="Kế hoạch khác">Kế hoạch khác</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Ngày bắt đầu</label>
+                    <input id="startDate" type="date">
+                </div>
+
+                <div class="form-group">
+                    <label>Ngày kết thúc</label>
+                    <input id="endDate" type="date">
+                </div>
+
+                <div class="form-group">
+                    <label>Đơn vị phụ trách</label>
+                    <input id="planUnit"
+                           placeholder="Nhập đơn vị phụ trách">
+                </div>
+
+                <div class="form-group">
+                    <label>Người phụ trách</label>
+                    <input id="planPerson"
+                           placeholder="Nhập người phụ trách">
+                </div>
+
+                <div class="form-group full">
+                    <label>Nội dung kế hoạch</label>
+                    <textarea id="planContent"
+                        placeholder="Nhập đầy đủ nội dung kế hoạch..."></textarea>
+                </div>
+
+                <div class="form-group full">
+                    <label>Ghi chú</label>
+                    <input id="planNote"
+                           placeholder="Ghi chú thêm nếu có">
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button class="primary-btn" type="submit" id="submitBtn">
+                    + LƯU KẾ HOẠCH
+                </button>
+
+                <span class="status-message" id="uploadStatus"></span>
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<!-- CỬA SỔ XEM CHI TIẾT -->
+
+<div class="detail-overlay" id="detailOverlay"
+     onclick="if(event.target === this) closeDetail()">
+
+    <div class="detail-box">
+
+        <div class="detail-header">
+            <h2>CHI TIẾT KẾ HOẠCH</h2>
+
+            <button class="close-detail"
+                    onclick="closeDetail()">✕ ĐÓNG</button>
+        </div>
+
+        <div id="detailContent"></div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    PHÒNG HỒ CHÍ MINH — HỆ THỐNG QUẢN LÝ KẾ HOẠCH
+</footer>
+
+
+<script>
+
+/**************************************************
+ * API KẾ HOẠCH
+ * GIỮ NGUYÊN API HIỆN TẠI
+ **************************************************/
+
+const PLANS_API =
+"https://script.google.com/macros/s/AKfycbyBmTTnc6DVtVKrTX5vxlBqOk1HfjG8FeE4jFJGVbmmpBgVL5maLezMjNPN6U6ksVU0mA/exec";
+
+let allPlans = [];
+let currentFilteredPlans = [];
+let activeCategory = "";
+
+
+/**************************************************
+ * TẢI DANH SÁCH KẾ HOẠCH
+ **************************************************/
+
+function loadPlans() {
+
+    const oldScript = document.getElementById("plansApiScript");
+
+    if (oldScript) oldScript.remove();
+
+    window.plansPageCallback = function(data) {
+
+        if (data && data.success && Array.isArray(data.plans)) {
+
+            allPlans = data.plans;
+            renderPlans();
+
+        } else {
+
+            document.getElementById("planList").innerHTML =
+                '<div class="empty">Không lấy được dữ liệu kế hoạch.</div>';
+
+            document.getElementById("resultCount").textContent =
+                "Không tải được dữ liệu";
+        }
+    };
+
+    const script = document.createElement("script");
+
+    script.id = "plansApiScript";
+
+    script.src = PLANS_API +
+        "?action=plans&callback=plansPageCallback&t=" + Date.now();
+
+    script.onerror = function() {
+
+        document.getElementById("planList").innerHTML =
+            '<div class="empty">Lỗi kết nối máy chủ. Vui lòng tải lại trang.</div>';
+
+        document.getElementById("resultCount").textContent =
+            "Lỗi kết nối";
+    };
+
+    document.head.appendChild(script);
+}
+
+
+/**************************************************
+ * HIỂN THỊ VÀ LỌC KẾ HOẠCH
+ **************************************************/
+
+function renderPlans() {
+
+    const keyword = document.getElementById("searchName")
+        .value.trim().toLowerCase();
+
+    const category = activeCategory ||
+        document.getElementById("searchCategory").value;
+
+    const year = document.getElementById("searchYear").value;
+
+    const filtered = allPlans.filter(function(plan) {
+
+        const name = String(plan.name || plan.title || "").toLowerCase();
+        const content = String(plan.content || "").toLowerCase();
+        const type = String(plan.category || "");
+        const date = String(plan.startDate || plan.date || "");
+
+        const matchKeyword =
+            !keyword ||
+            name.includes(keyword) ||
+            content.includes(keyword);
+
+        const matchCategory =
+            !category || type === category;
+
+        const matchYear =
+            !year || date.startsWith(year);
+
+        return matchKeyword && matchCategory && matchYear;
+    });
+
+    currentFilteredPlans = filtered;
+
+    document.getElementById("resultCount").textContent =
+        "Tìm thấy " + filtered.length + " kế hoạch";
+
+    const list = document.getElementById("planList");
+
+    if (filtered.length === 0) {
+
+        list.innerHTML =
+            '<div class="empty">Chưa có kế hoạch phù hợp.</div>';
+
+        return;
+    }
+
+    list.innerHTML = filtered.map(function(plan, index) {
+
+        const name = escapeHTML(plan.name || plan.title || "Chưa có tên");
+        const type = escapeHTML(plan.category || "Chưa phân loại");
+        const start = escapeHTML(plan.startDate || plan.date || "Chưa cập nhật");
+        const end = escapeHTML(plan.endDate || "Chưa cập nhật");
+        const unit = escapeHTML(plan.unit || "Chưa cập nhật");
+        const person = escapeHTML(plan.person || "Chưa cập nhật");
+        const content = escapeHTML(plan.content || "Không có nội dung");
+
+        return `
+            <div class="plan-card">
+
+                <span class="plan-tag">${type}</span>
+
+                <h3>${name}</h3>
+
+                <p><b>Thời gian:</b> ${start} - ${end}</p>
+
+                <p><b>Đơn vị:</b> ${unit}</p>
+
+                <p><b>Người phụ trách:</b> ${person}</p>
+
+                <p><b>Nội dung:</b> ${content}</p>
+
+                <button class="view-btn"
+                    onclick="viewPlan(${index})">
+                    👁 XEM CHI TIẾT
+                </button>
+
+            </div>
+        `;
+
+    }).join("");
+}
+
+
+/**************************************************
+ * XEM TOÀN BỘ NỘI DUNG KẾ HOẠCH
+ **************************************************/
+
+function viewPlan(index) {
+
+    const plan = currentFilteredPlans[index];
+
+    if (!plan) return;
+
+    const name = escapeHTML(plan.name || plan.title || "Chưa có tên");
+    const category = escapeHTML(plan.category || "Chưa phân loại");
+
+    const start = escapeHTML(plan.startDate || "Chưa cập nhật");
+    const end = escapeHTML(plan.endDate || "Chưa cập nhật");
+
+    const unit = escapeHTML(plan.unit || "Chưa cập nhật");
+    const person = escapeHTML(plan.person || "Chưa cập nhật");
+
+    const status = escapeHTML(plan.status || "Chưa cập nhật");
+    const progress = Math.max(0, Math.min(100, Number(plan.progress) || 0));
+
+    const content = escapeHTML(plan.content || "Chưa có nội dung kế hoạch.");
+    const note = escapeHTML(plan.note || "Không có ghi chú.");
+
+    document.getElementById("detailContent").innerHTML = `
+
+        <span class="detail-tag">${category}</span>
+
+        <div class="detail-name">${name}</div>
+
+        <div class="detail-grid">
+
+            <div class="detail-item">
+                <label>Ngày bắt đầu</label>
+                <div>${start}</div>
+            </div>
+
+            <div class="detail-item">
+                <label>Ngày kết thúc</label>
+                <div>${end}</div>
+            </div>
+
+            <div class="detail-item">
+                <label>Đơn vị phụ trách</label>
+                <div>${unit}</div>
+            </div>
+
+            <div class="detail-item">
+                <label>Người phụ trách</label>
+                <div>${person}</div>
+            </div>
+
+            <div class="detail-item">
+                <label>Trạng thái</label>
+                <div>${status}</div>
+            </div>
+
+            <div class="detail-item">
+                <label>Tiến độ</label>
+                <div>${progress}%</div>
+            </div>
+
+        </div>
+
+        <div class="detail-progress">
+            <b>Tiến độ thực hiện</b>
+
+            <div class="progress-track">
+                <div class="progress-fill"
+                     style="width:${progress}%"></div>
+            </div>
+        </div>
+
+        <div class="detail-content">
+            <h3>📄 NỘI DUNG KẾ HOẠCH</h3>
+            <div class="detail-content-text">${content}</div>
+        </div>
+
+        <div class="detail-note">
+            <b>GHI CHÚ:</b><br>
+            ${note}
+        </div>
+    `;
+
+    document.getElementById("detailOverlay").style.display = "block";
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/**************************************************
+ * ĐÓNG CỬA SỔ CHI TIẾT
+ **************************************************/
+
+function closeDetail() {
+
+    document.getElementById("detailOverlay").style.display = "none";
+
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        closeDetail();
+    }
+
+});
+
+
+/**************************************************
+ * CHỌN DANH MỤC
+ **************************************************/
+
+function chooseCategory(category) {
+
+    activeCategory = category;
+
+    document.getElementById("searchCategory").value = category;
+
+    document.getElementById("resultSection").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    renderPlans();
+}
+
+
+/**************************************************
+ * THAY ĐỔI BỘ LỌC
+ **************************************************/
+
+document.getElementById("searchCategory").addEventListener("change", function() {
+
+    activeCategory = "";
+
+    renderPlans();
+});
+
+document.getElementById("searchName").addEventListener("input", function() {
+    renderPlans();
+});
+
+document.getElementById("searchYear").addEventListener("change", function() {
+    renderPlans();
+});
+
+
+/**************************************************
+ * CHỐNG LỖI HIỂN THỊ HTML
+ **************************************************/
+
+function escapeHTML(value) {
+
+    return String(value).replace(/[&<>"']/g, function(char) {
+
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
+
+    });
+}
+
+
+/**************************************************
+ * THÊM KẾ HOẠCH VÀO GOOGLE SHEETS
+ **************************************************/
+
+document.getElementById("uploadForm").addEventListener("submit",
+function(event) {
+
+    event.preventDefault();
+
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+
+    if (startDate && endDate && endDate < startDate) {
+
+        alert("Ngày kết thúc không được trước ngày bắt đầu.");
+
+        return;
+    }
+
+    const payload = {
+
+        action: "add",
+
+        name: document.getElementById("planName").value.trim(),
+
+        category: document.getElementById("planCategory").value,
+
+        startDate: startDate,
+
+        endDate: endDate,
+
+        unit: document.getElementById("planUnit").value.trim(),
+
+        person: document.getElementById("planPerson").value.trim(),
+
+        content: document.getElementById("planContent").value.trim(),
+
+        note: document.getElementById("planNote").value.trim()
+
+    };
+
+    const submitBtn = document.getElementById("submitBtn");
+
+    const status = document.getElementById("uploadStatus");
+
+    submitBtn.disabled = true;
+
+    status.textContent = "Đang lưu kế hoạch...";
+
+    fetch(PLANS_API, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify(payload)
+
+    })
+
+    .then(function(response) {
+
+        return response.json();
+
+    })
+
+    .then(function(data) {
+
+        if (data && data.success) {
+
+            alert("Đã lưu kế hoạch thành công!");
+
+            document.getElementById("uploadForm").reset();
+
+            status.textContent = "";
+
+            loadPlans();
+
+        } else {
+
+            alert("Không lưu được kế hoạch: " +
+                (data.message || "Lỗi không xác định"));
+
+            status.textContent = "Lưu kế hoạch thất bại.";
+        }
+
+    })
+
+    .catch(function(error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Không nhận được phản hồi từ máy chủ. Cần kiểm tra kết nối.";
+
+    })
+
+    .finally(function() {
+
+        submitBtn.disabled = false;
+
+    });
+
+});
+
+
+/**************************************************
+ * KHỞI ĐỘNG TRANG
+ **************************************************/
+
+loadPlans();
+
+</script>
+
+</body>
+</html>

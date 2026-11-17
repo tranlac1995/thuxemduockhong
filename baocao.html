@@ -1,0 +1,652 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b78">
+<title>Quản lý báo cáo - Phòng Hồ Chí Minh</title>
+
+<style>
+:root {
+    --navy: #073b78;
+    --blue: #0755a5;
+    --gold: #e5bd54;
+    --text: #20334b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        linear-gradient(rgba(5,35,75,.76),rgba(5,35,75,.76)),
+        url("background.jpg") center/cover fixed;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(110deg,#052c5b,#0755a5);
+    color: white;
+    padding: 20px 25px;
+    border-bottom: 4px solid var(--gold);
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.header-title p {
+    margin: 7px 0 0;
+    color: #e8d28e;
+    font-size: 13px;
+}
+
+.back-btn {
+    background: var(--gold);
+    color: #17345b;
+    padding: 10px 17px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 15px 40px;
+}
+
+.page-heading {
+    color: white;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.page-heading h2 {
+    margin: 0 0 8px;
+    font-size: 27px;
+}
+
+.page-heading p {
+    margin: 0;
+    color: #e6edf8;
+}
+
+.panel {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.15);
+}
+
+.panel h3 {
+    color: var(--navy);
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e6edf5;
+}
+
+.upload-area {
+    border: 2px dashed #9eb4d0;
+    border-radius: 12px;
+    padding: 28px 18px;
+    text-align: center;
+    background: #f7faff;
+}
+
+.upload-icon {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.upload-area p {
+    color: #63748a;
+    line-height: 1.6;
+}
+
+input[type="file"] {
+    display: block;
+    max-width: 100%;
+    margin: 18px auto;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd6e3;
+    border-radius: 7px;
+    font-size: 14px;
+    margin: 8px 0 15px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 7px;
+    padding: 12px 18px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--blue);
+    color: white;
+}
+
+.btn-green {
+    background: #16834b;
+    color: white;
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: #17345b;
+}
+
+.status {
+    padding: 13px 15px;
+    border-radius: 8px;
+    background: #f0f4f9;
+    margin-bottom: 18px;
+    font-size: 14px;
+    display: none;
+    line-height: 1.5;
+}
+
+.status.success {
+    display: block;
+    color: #176c43;
+    background: #eaf7ef;
+}
+
+.status.error {
+    display: block;
+    color: #a52d2d;
+    background: #fff0f0;
+}
+
+.status.loading {
+    display: block;
+    color: #0755a5;
+    background: #edf4ff;
+}
+
+.report-count {
+    display: inline-block;
+    background: #edf4ff;
+    color: var(--navy);
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th {
+    background: var(--navy);
+    color: white;
+    padding: 13px 10px;
+    font-size: 13px;
+}
+
+td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e3eaf2;
+    text-align: center;
+    font-size: 14px;
+}
+
+td:nth-child(2) {
+    text-align: left;
+}
+
+tbody tr:hover {
+    background: #f1f6fc;
+}
+
+.file-link {
+    color: var(--blue);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+}
+
+.empty {
+    text-align: center;
+    color: #7b8796;
+    padding: 25px;
+}
+
+@media(max-width:600px) {
+    .header-title h1 {
+        font-size: 19px;
+    }
+
+    .page-heading h2 {
+        font-size: 22px;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="header-title">
+            <h1>PHÒNG HỒ CHÍ MINH</h1>
+            <p>QUẢN LÝ VÀ LƯU TRỮ BÁO CÁO</p>
+        </div>
+
+        <a href="thongke.html" class="back-btn">
+            ← Quay lại thống kê
+        </a>
+    </div>
+</header>
+
+<main class="container">
+
+    <div class="page-heading">
+        <h2>QUẢN LÝ BÁO CÁO</h2>
+        <p>Tải lên, lưu trữ và tra cứu báo cáo của đơn vị</p>
+    </div>
+
+    <div id="statusBox" class="status"></div>
+
+    <div class="panel">
+        <h3>⬆ TẢI BÁO CÁO LÊN HỆ THỐNG</h3>
+
+        <div class="upload-area">
+            <div class="upload-icon">📁</div>
+
+            <strong>Chọn file báo cáo cần tải lên</strong>
+
+            <p>
+                Hỗ trợ định dạng PDF, DOC, DOCX.
+                <br>
+                Dung lượng tối đa 10 MB.
+            </p>
+
+            <input
+                type="file"
+                id="reportFile"
+                accept=".pdf,.doc,.docx"
+            >
+        </div>
+
+        <label for="uploader"><strong>Người tải lên</strong></label>
+
+        <input
+            type="text"
+            id="uploader"
+            placeholder="Nhập họ tên người tải lên"
+        >
+
+        <button
+            class="btn-green"
+            id="uploadButton"
+            onclick="uploadReport()"
+        >
+            TẢI BÁO CÁO LÊN
+        </button>
+    </div>
+
+    <div class="panel">
+        <h3>📚 DANH SÁCH BÁO CÁO ĐÃ LƯU</h3>
+
+        <div class="report-count" id="reportCount">
+            Tổng số: 0 báo cáo
+        </div>
+
+        <button
+            class="btn-gold"
+            onclick="loadReports()"
+            style="margin-bottom:15px;"
+        >
+            ↻ TẢI LẠI DANH SÁCH
+        </button>
+
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>TÊN BÁO CÁO</th>
+                        <th>NGÀY ĐĂNG</th>
+                        <th>LOẠI FILE</th>
+                        <th>NGƯỜI TẢI LÊN</th>
+                        <th>TẢI FILE</th>
+                    </tr>
+                </thead>
+
+                <tbody id="reportList">
+                    <tr>
+                        <td colspan="6" class="empty">
+                            Đang tải danh sách báo cáo...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<script>
+
+/* ĐỊA CHỈ APPS SCRIPT */
+
+const REPORT_API =
+"https://script.google.com/macros/s/AKfycbzuXl_jo0SC3m7IfuorvU7MFR6zZ5FKw5GrzOPFle1fXRam_w1sDbdLn5biHsDSyHVOgg/exec";
+
+
+/* HIỂN THỊ THÔNG BÁO */
+
+function showStatus(message, type) {
+    const box = document.getElementById("statusBox");
+
+    box.textContent = message;
+    box.className = "status " + type;
+}
+
+
+/* TẢI DANH SÁCH BÁO CÁO */
+
+function loadReports() {
+    const callbackName =
+        "reportCallback_" + Date.now();
+
+    const script = document.createElement("script");
+
+    document.getElementById("reportList").innerHTML = `
+        <tr>
+            <td colspan="6" class="empty">
+                Đang tải dữ liệu...
+            </td>
+        </tr>
+    `;
+
+    showStatus("Đang kết nối kho báo cáo...", "loading");
+
+    const timeout = setTimeout(() => {
+        cleanup();
+
+        showStatus(
+            "Không nhận được phản hồi từ hệ thống.",
+            "error"
+        );
+    }, 20000);
+
+    function cleanup() {
+        clearTimeout(timeout);
+        delete window[callbackName];
+
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
+        }
+    }
+
+    window[callbackName] = function(data) {
+        cleanup();
+
+        if (!data || !data.success) {
+            showStatus(
+                data?.message || "Không tải được danh sách báo cáo.",
+                "error"
+            );
+            return;
+        }
+
+        renderReports(data.reports || []);
+
+        showStatus(
+            "Đã tải danh sách báo cáo thành công.",
+            "success"
+        );
+    };
+
+    script.onerror = function() {
+        cleanup();
+
+        showStatus(
+            "Không thể kết nối Google Apps Script.",
+            "error"
+        );
+    };
+
+    script.src =
+        REPORT_API +
+        "?callback=" + encodeURIComponent(callbackName) +
+        "&t=" + Date.now();
+
+    document.body.appendChild(script);
+}
+
+
+/* HIỂN THỊ DANH SÁCH */
+
+function renderReports(reports) {
+    const body = document.getElementById("reportList");
+
+    document.getElementById("reportCount").textContent =
+        "Tổng số: " + reports.length + " báo cáo";
+
+    if (!reports.length) {
+        body.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty">
+                    Chưa có báo cáo nào được lưu.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    body.innerHTML = reports.map((item, index) => `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${escapeHTML(item.name)}</td>
+            <td>${escapeHTML(item.date)}</td>
+            <td>${escapeHTML(getFileExtension(item.name))}</td>
+            <td>${escapeHTML(item.uploader || "")}</td>
+            <td>
+                <a
+                    class="file-link"
+                    href="${safeDriveUrl(item.url)}"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Mở file
+                </a>
+            </td>
+        </tr>
+    `).join("");
+}
+
+
+/* TẢI FILE LÊN */
+
+async function uploadReport() {
+    const fileInput = document.getElementById("reportFile");
+    const uploader = document.getElementById("uploader").value.trim();
+    const button = document.getElementById("uploadButton");
+
+    const file = fileInput.files[0];
+
+    if (!file) {
+        showStatus("Vui lòng chọn file báo cáo.", "error");
+        return;
+    }
+
+    if (!uploader) {
+        showStatus("Vui lòng nhập tên người tải lên.", "error");
+        return;
+    }
+
+    const allowedExtensions = ["pdf", "doc", "docx"];
+    const extension = file.name.split(".").pop().toLowerCase();
+
+    if (!allowedExtensions.includes(extension)) {
+        showStatus("Chỉ được tải file PDF, DOC hoặc DOCX.", "error");
+        return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+        showStatus("File vượt quá dung lượng 10 MB.", "error");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "ĐANG TẢI LÊN...";
+
+    showStatus("Đang tải file lên Google Drive...", "loading");
+
+    try {
+        const base64 = await readFileAsBase64(file);
+
+        const formData = new URLSearchParams();
+
+        formData.append("fileName", file.name);
+        formData.append("fileType", file.type || getMimeType(extension));
+        formData.append("fileData", base64);
+        formData.append("uploader", uploader);
+
+        const response = await fetch(REPORT_API, {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.message || "Tải báo cáo thất bại.");
+        }
+
+        showStatus("Đã tải báo cáo lên thành công.", "success");
+
+        fileInput.value = "";
+
+        loadReports();
+
+    } catch (error) {
+        showStatus(
+            "Lỗi tải báo cáo: " + error.message,
+            "error"
+        );
+
+    } finally {
+        button.disabled = false;
+        button.textContent = "TẢI BÁO CÁO LÊN";
+    }
+}
+
+
+/* ĐỌC FILE BASE64 */
+
+function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const result = reader.result;
+            resolve(result.split(",")[1]);
+        };
+
+        reader.onerror = function() {
+            reject(new Error("Không đọc được file."));
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+
+/* XÁC ĐỊNH LOẠI FILE */
+
+function getMimeType(extension) {
+    const types = {
+        pdf: "application/pdf",
+        doc: "application/msword",
+        docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    };
+
+    return types[extension] || "application/octet-stream";
+}
+
+function getFileExtension(fileName) {
+    return fileName.split(".").pop().toUpperCase();
+}
+
+
+/* HÀM BỔ TRỢ */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function safeDriveUrl(value) {
+    try {
+        const url = new URL(value);
+
+        if (url.protocol === "https:" &&
+            url.hostname === "drive.google.com") {
+            return url.href;
+        }
+    } catch(error) {}
+
+    return "#";
+}
+
+
+/* KHỞI CHẠY */
+
+loadReports();
+
+</script>
+
+</body>
+</html>

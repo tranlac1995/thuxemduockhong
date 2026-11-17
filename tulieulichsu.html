@@ -1,0 +1,298 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b78">
+
+<title>Bảo tàng lịch sử quân sự - Phòng Hồ Chí Minh</title>
+
+<style>
+:root {
+    --navy: #073b78;
+    --blue: #0755a5;
+    --gold: #e5bd54;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(3, 28, 48, 0.58), rgba(3, 28, 48, 0.68)),
+        url("background.jpg") center center / cover fixed no-repeat;
+    color: var(--white);
+}
+
+/* HEADER */
+header {
+    width: 100%;
+    min-height: 75px;
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.94);
+    border-bottom: 3px solid var(--gold);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--navy);
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+}
+
+.back-btn {
+    text-decoration: none;
+    background: var(--navy);
+    color: white;
+    padding: 11px 20px;
+    border-radius: 25px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+}
+
+/* MAIN */
+main {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.heading {
+    margin-bottom: 35px;
+}
+
+.heading h1 {
+    font-size: clamp(25px, 4vw, 38px);
+    color: #fff;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.7);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.heading p {
+    font-size: 16px;
+    color: #f4e8c5;
+    line-height: 1.7;
+}
+
+/* CIRCLE */
+.circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #0755a5, #073b78);
+    border: 7px solid var(--gold);
+    box-shadow:
+        0 0 0 10px rgba(255,255,255,0.12),
+        0 15px 35px rgba(0,0,0,0.45);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    margin-bottom: 35px;
+}
+
+.circle .icon {
+    font-size: 75px;
+    margin-bottom: 12px;
+}
+
+.circle h2 {
+    font-size: 22px;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.circle span {
+    font-size: 13px;
+    color: #f6df9e;
+    margin-top: 8px;
+}
+
+/* VISIT BUTTON */
+.visit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 17px 35px;
+    border-radius: 40px;
+    background: linear-gradient(135deg, #e5bd54, #f5d985);
+    color: #073b78;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    border: 2px solid #fff1c4;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    transition: 0.3s;
+}
+
+.visit-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    background: #fff0bd;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+}
+
+.description {
+    max-width: 700px;
+    margin-top: 28px;
+    padding: 20px 25px;
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 15px;
+    line-height: 1.8;
+    font-size: 15px;
+    backdrop-filter: blur(6px);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 17px 10px;
+    background: rgba(3,25,48,0.85);
+    border-top: 2px solid var(--gold);
+    color: #eee;
+    font-size: 13px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    header {
+        padding: 10px 4%;
+    }
+
+    .logo {
+        font-size: 15px;
+    }
+
+    .logo-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 21px;
+    }
+
+    .back-btn {
+        padding: 9px 13px;
+        font-size: 13px;
+    }
+
+    .circle {
+        width: 250px;
+        height: 250px;
+    }
+
+    .circle .icon {
+        font-size: 60px;
+    }
+
+    .circle h2 {
+        font-size: 19px;
+    }
+
+    .visit-btn {
+        padding: 15px 22px;
+        font-size: 15px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">⚓</div>
+        <div>PHÒNG HỒ CHÍ MINH</div>
+    </div>
+
+    <a href="thuvien.html" class="back-btn">
+        ← Quay lại
+    </a>
+</header>
+
+<main>
+
+    <div class="heading">
+        <h1>Bảo tàng lịch sử quân sự Việt Nam</h1>
+        <p>Giáo dục truyền thống – Tự hào lịch sử – Tiếp bước cha anh</p>
+    </div>
+
+    <div class="circle">
+        <div class="icon">🏛️</div>
+        <h2>BẢO TÀNG LỊCH SỬ QUÂN SỰ</h2>
+        <span>VIỆT NAM</span>
+    </div>
+
+    <a
+        href="https://vr360.yoolife.vn/bao-tang-lich-su-quan-su-viet-nam-zmuseumc118u26724"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="visit-btn"
+    >
+        <span>🌐</span>
+        THAM QUAN BẢO TÀNG
+        <span>➜</span>
+    </a>
+
+    <div class="description">
+        <p>
+            Khám phá lịch sử hào hùng của Quân đội nhân dân Việt Nam
+            thông qua không gian tham quan bảo tàng trực tuyến 360°.
+            Tìm hiểu những dấu mốc lịch sử, hiện vật và chiến công
+            tiêu biểu trong sự nghiệp đấu tranh giải phóng dân tộc,
+            xây dựng và bảo vệ Tổ quốc.
+        </p>
+        <p style="margin-top:12px; color:#f6df9e; font-weight:700;">
+            Mỗi hiện vật – Một câu chuyện lịch sử.
+            Mỗi thế hệ – Một trách nhiệm tiếp nối truyền thống.
+        </p>
+    </div>
+
+</main>
+
+<footer>
+    PHÒNG HỒ CHÍ MINH | GIÁO DỤC TRUYỀN THỐNG QUÂN ĐỘI NHÂN DÂN VIỆT NAM
+</footer>
+
+</body>
+</html>

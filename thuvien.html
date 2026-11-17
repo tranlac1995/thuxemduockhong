@@ -1,0 +1,526 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b78">
+
+<title>Thư viện điện tử - Phòng Hồ Chí Minh</title>
+
+<style>
+:root {
+    --navy: #073b78;
+    --blue: #0755a5;
+    --gold: #e5bd54;
+    --light: #eaf3fc;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+    color: #17385f;
+    background:
+        linear-gradient(rgba(232,242,253,.88),rgba(232,242,253,.94)),
+        url("background.jpg") center/cover fixed;
+}
+
+/* HEADER */
+
+header {
+    background: linear-gradient(110deg,#073b78,#0755a5);
+    color: white;
+    padding: 15px 25px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.18);
+    position: relative;
+    z-index: 10;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 55px;
+    height: 55px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+    flex-shrink: 0;
+}
+
+.header-text h1 {
+    font-size: 20px;
+    letter-spacing: .5px;
+}
+
+.header-text p {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #d9eaff;
+}
+
+.home-btn {
+    margin-left: auto;
+    background: white;
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 17px;
+    border-radius: 9px;
+    transition: .2s;
+}
+
+.home-btn:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+}
+
+/* MAIN */
+
+main {
+    max-width: 1150px;
+    margin: auto;
+    padding: 28px 20px 40px;
+}
+
+.page-heading {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.page-heading h2 {
+    color: var(--navy);
+    font-size: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.page-heading p {
+    color: #647b96;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* CIRCLE AREA */
+
+.circle-area {
+    width: 100%;
+    max-width: 950px;
+    height: 590px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* CENTER CIRCLE */
+
+.center-circle {
+    width: 245px;
+    height: 245px;
+    border-radius: 50%;
+    background: linear-gradient(145deg,#0755a5,#032d61);
+    border: 7px solid var(--gold);
+    box-shadow:
+        0 0 0 10px rgba(7,59,120,.09),
+        0 12px 35px rgba(0,35,80,.28),
+        inset 0 0 25px rgba(255,255,255,.15);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    z-index: 2;
+    animation: glow 3s infinite alternate;
+}
+
+.center-icon {
+    font-size: 58px;
+    margin-bottom: 8px;
+}
+
+.center-circle h2 {
+    font-size: 21px;
+    line-height: 1.4;
+    font-weight: 800;
+    padding: 0 12px;
+}
+
+.center-circle p {
+    color: #ffdf86;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 8px;
+    letter-spacing: 1px;
+}
+
+@keyframes glow {
+    from {
+        box-shadow:
+        0 0 0 9px rgba(7,59,120,.08),
+        0 10px 25px rgba(0,35,80,.23);
+    }
+    to {
+        box-shadow:
+        0 0 0 15px rgba(7,59,120,.12),
+        0 12px 38px rgba(0,35,80,.32);
+    }
+}
+
+/* CATEGORY CIRCLES */
+
+.category {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(145deg,#ffffff,#e1edfa);
+    border: 4px solid var(--blue);
+    box-shadow:
+        0 7px 20px rgba(0,48,100,.15),
+        inset 0 0 12px rgba(7,85,165,.06);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--navy);
+    padding: 12px;
+    z-index: 3;
+    transition: .3s;
+}
+
+.category:hover {
+    transform: scale(1.1);
+    background: linear-gradient(145deg,#0755a5,#073b78);
+    border-color: var(--gold);
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,48,100,.3);
+}
+
+.category-icon {
+    font-size: 37px;
+    margin-bottom: 8px;
+}
+
+.category h3 {
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 800;
+}
+
+.category span {
+    font-size: 10px;
+    margin-top: 5px;
+    opacity: .7;
+}
+
+/* FIVE POSITIONS */
+
+.item-1 {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.item-1:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.item-2 {
+    top: 145px;
+    right: 100px;
+}
+
+.item-3 {
+    bottom: 35px;
+    right: 200px;
+}
+
+.item-4 {
+    bottom: 35px;
+    left: 200px;
+}
+
+.item-5 {
+    top: 145px;
+    left: 100px;
+}
+
+/* DESCRIPTION */
+
+.instruction {
+    text-align: center;
+    margin-top: 5px;
+    color: #607994;
+    font-size: 13px;
+}
+
+.instruction span {
+    color: var(--blue);
+    font-weight: bold;
+}
+
+/* FOOTER */
+
+footer {
+    background: #073b78;
+    color: #dceaff;
+    text-align: center;
+    padding: 17px;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:750px) {
+
+    main {
+        padding: 25px 10px 30px;
+    }
+
+    .circle-area {
+        max-width: 500px;
+        height: 650px;
+        margin-top: 15px;
+    }
+
+    .center-circle {
+        width: 180px;
+        height: 180px;
+    }
+
+    .center-icon {
+        font-size: 42px;
+    }
+
+    .center-circle h2 {
+        font-size: 16px;
+    }
+
+    .center-circle p {
+        font-size: 9px;
+    }
+
+    .category {
+        width: 115px;
+        height: 115px;
+        border-width: 3px;
+        padding: 7px;
+    }
+
+    .category-icon {
+        font-size: 29px;
+        margin-bottom: 5px;
+    }
+
+    .category h3 {
+        font-size: 11px;
+    }
+
+    .category span {
+        font-size: 9px;
+    }
+
+    .item-1 {
+        top: 5px;
+    }
+
+    .item-2 {
+        top: 175px;
+        right: 5px;
+    }
+
+    .item-3 {
+        bottom: 35px;
+        right: 35px;
+    }
+
+    .item-4 {
+        bottom: 35px;
+        left: 35px;
+    }
+
+    .item-5 {
+        top: 175px;
+        left: 5px;
+    }
+
+    .page-heading h2 {
+        font-size: 20px;
+    }
+
+    .header-text h1 {
+        font-size: 15px;
+    }
+
+    .header-text p {
+        font-size: 10px;
+    }
+
+    .logo {
+        width: 45px;
+        height: 45px;
+        font-size: 23px;
+    }
+
+    .home-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}
+
+@media(max-width:380px) {
+    .category {
+        width: 100px;
+        height: 100px;
+    }
+
+    .category h3 {
+        font-size: 10px;
+    }
+
+    .item-2,.item-5 {
+        top: 155px;
+    }
+
+    .item-3,.item-4 {
+        bottom: 45px;
+    }
+
+    .center-circle {
+        width: 160px;
+        height: 160px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+    <div class="header-inner">
+
+        <div class="logo">⚓</div>
+
+        <div class="header-text">
+            <h1>PHÒNG HỒ CHÍ MINH</h1>
+            <p>TRANG ĐIỆN TỬ QUẢN LÝ HOẠT ĐỘNG PHÒNG HỒ CHÍ MINH</p>
+        </div>
+
+        <a href="index.html" class="home-btn">
+            🏠 Trang chủ
+        </a>
+
+    </div>
+</header>
+
+<!-- MAIN -->
+
+<main>
+
+    <div class="page-heading">
+        <h2>THƯ VIỆN ĐIỆN TỬ</h2>
+        <p>Không gian tri thức - Văn hóa đọc - Học tập và nghiên cứu</p>
+    </div>
+
+    <div class="circle-area">
+
+        <!-- CENTER -->
+
+        <div class="center-circle">
+
+            <div class="center-icon">📚</div>
+
+            <h2>
+                THƯ VIỆN<br>
+                ĐIỆN TỬ
+            </h2>
+
+            <p>PHÒNG HỒ CHÍ MINH</p>
+
+        </div>
+
+        <!-- 1. TÀI LIỆU -->
+
+        <a href="tailieu.html" class="category item-1">
+            <div class="category-icon">📂</div>
+            <h3>TÀI LIỆU</h3>
+            <span>Học tập - Nghiên cứu</span>
+        </a>
+
+        <!-- 2. SÁCH VÀ BÁO -->
+
+        <a href="sachbao.html" class="category item-2">
+            <div class="category-icon">📖</div>
+            <h3>SÁCH VÀ BÁO</h3>
+            <span>Văn hóa đọc</span>
+        </a>
+
+        <!-- 3. TƯ LIỆU LỊCH SỬ -->
+
+        <a href="tulieulichsu.html" class="category item-3">
+            <div class="category-icon">🏛️</div>
+            <h3>TƯ LIỆU<br>LỊCH SỬ</h3>
+            <span>Truyền thống đơn vị</span>
+        </a>
+
+        <!-- 4. GIÁO DỤC CHÍNH TRỊ -->
+
+        <a href="gdct-co-ban.html" class="category item-4">
+            <div class="category-icon">🎖️</div>
+            <h3>GIÁO DỤC<br>CHÍNH TRỊ</h3>
+            <span>Học tập - Rèn luyện</span>
+        </a>
+
+        <!-- 5. VĂN BẢN -->
+
+        <a href="vanban.html" class="category item-5">
+            <div class="category-icon">📑</div>
+            <h3>VĂN BẢN</h3>
+            <span>Chỉ thị - Nghị quyết</span>
+        </a>
+
+    </div>
+
+    <div class="instruction">
+        <span>Chọn một danh mục hình tròn</span>
+        để truy cập nội dung thư viện
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+    <strong>PHÒNG HỒ CHÍ MINH - TIỂU ĐOÀN</strong><br>
+    THƯ VIỆN ĐIỆN TỬ - KHO TRI THỨC SỐ<br>
+    Đoàn kết - Kỷ luật - Chính quy - Hiện đại
+</footer>
+
+</body>
+</html>

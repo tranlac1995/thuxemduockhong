@@ -1,0 +1,962 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b78">
+<title>Phòng Hồ Chí Minh - Tiểu đoàn</title>
+<style>
+:root{
+  --navy:#073b78;
+--blue:#0755a5;
+--blue2:#1674d1;
+--ink:#17365d;
+--muted:#718096;
+--bg:#edf3fa;
+--line:#e5ebf3;
+--shadow:0 5px 18px rgba(22,55,95,.09)}
+*{
+  box-sizing:border-box}
+body{
+  margin:0;
+background:var(--bg);
+font-family:Arial,Helvetica,sans-serif;
+color:#172b4d;
+font-size:14px}
+button{
+  font:inherit;
+cursor:pointer}
+.topbar{
+  height:78px;
+background:linear-gradient(105deg,#062f65,#0755a5 65%,#07366e);
+color:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 28px;
+box-shadow:0 3px 12px #062b5840;
+position:relative;
+z-index:2}
+.brand{
+  display:flex;
+align-items:center;
+gap:15px;
+min-width:0}
+.logo{
+  width:58px;
+height:58px;
+border:2px solid #e9bd36;
+border-radius:50%;
+display:grid;
+place-items:center;
+color:#ffd34f;
+font-size:32px;
+background:radial-gradient(circle,#0c5aa5,#052b5c);
+flex-shrink:0;
+box-shadow:0 0 0 2px #ffffff20,inset 0 0 12px #ffffff22}
+.brand-small{
+  font-size:13px;
+font-weight:700;
+letter-spacing:1.4px}
+.brand-name{
+  font-size:25px;
+font-weight:900;
+color:#ffd34f;
+line-height:1.1;
+text-shadow:0 2px 3px #001c46}
+.slogan{
+  font-family:Georgia,serif;
+font-style:italic;
+text-align:center;
+font-size:13px;
+margin-top:4px;
+color:#e9f3ff}
+.top-right{
+  display:flex;
+align-items:center;
+gap:18px}
+.datetime{
+  font-weight:600;
+border-right:1px solid #ffffff55;
+padding-right:18px;
+white-space:nowrap}
+.user{
+  display:flex;
+align-items:center;
+gap:10px}
+.avatar{
+  width:42px;
+height:42px;
+border-radius:50%;
+background:#dce8f7;
+border:2px solid #f2c84b;
+display:grid;
+place-items:center;
+font-size:23px}
+.user-name{
+  font-weight:700}
+.user-role{
+  font-size:11px;
+color:#d6e5f7;
+margin-top:3px}
+.hero{
+  height:166px;
+position:relative;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:#a50f19;
+background:#0875b6 url("banner-phong-hcm.jpg") center center/cover no-repeat}
+.hero:before{
+  content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(90deg,#071f3a12,transparent 45%,#052f5a10)}
+.hero:after{
+  content:"";
+position:absolute;
+left:0;
+right:0;
+bottom:0;
+height:9px;
+background:linear-gradient(90deg,#0c4e91,#32b8e8,#0c4e91);
+opacity:.8}
+.hero-copy{
+  display:none}
+.hero h1{
+  font-size:34px;
+letter-spacing:1px;
+margin:0 0 7px;
+font-weight:900}
+.hero p{
+  font-size:17px;
+font-weight:700;
+margin:0}
+.hero-left,.hero-right{
+  position:absolute;
+z-index:1;
+top:50%;
+transform:translateY(-50%);
+font-size:45px;
+filter:drop-shadow(0 2px 2px #234)}
+.hero-left{
+  left:5%;
+color:#ffe05a}
+.hero-right{
+  right:5%;
+font-size:42px}
+.layout{
+  display:grid;
+grid-template-columns:205px minmax(0,1fr);
+min-height:calc(100vh - 238px)}
+.sidebar{
+  background:linear-gradient(180deg,#084b91,#052e64);
+padding:13px 9px;
+color:#fff;
+display:flex;
+flex-direction:column;
+gap:4px}
+.nav-item{
+  border:0;
+color:#f4f8ff;
+background:transparent;
+text-align:left;
+padding:12px 11px;
+border-radius:9px;
+display:flex;
+align-items:center;
+gap:11px;
+font-weight:600;
+transition:.2s}
+.nav-item:hover,.nav-item.active{
+  background:linear-gradient(90deg,#1978d2,#0754a4);
+box-shadow:inset 0 0 0 1px #ffffff22}
+.nav-icon{
+  width:23px;
+text-align:center;
+font-size:18px}
+.nav-arrow{
+  margin-left:auto;
+color:#b8d8f7}
+.side-sep{
+  height:1px;
+background:#ffffff35;
+margin:12px 5px}
+.side-note{
+  margin-top:auto;
+min-height:190px;
+text-align:center;
+padding:16px 8px 12px;
+color:#ffdc57;
+font-family:Georgia,serif;
+font-style:italic;
+font-weight:bold;
+font-size:17px;
+line-height:1.4;
+border-top:1px solid #ffffff35;
+background:linear-gradient(180deg,#073b78b8,#073b7830),url("ban-tay-chuyen-doi-so.jpg") center bottom/cover no-repeat;
+text-shadow:0 2px 4px #00244d}
+.main{
+  padding:13px 14px 22px;
+min-width:0}
+.stats{
+  display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:12px;
+margin-bottom:13px}
+.stat{
+  border-radius:14px;
+padding:13px 15px;
+display:flex;
+align-items:center;
+gap:13px;
+min-height:88px;
+box-shadow:var(--shadow);
+border:1px solid #ffffffa8}
+.stat:nth-child(1){
+  background:linear-gradient(110deg,#d8eaff,#c8def9)}
+.stat:nth-child(2){
+  background:linear-gradient(110deg,#d8f4df,#c8efd2)}
+.stat:nth-child(3){
+  background:linear-gradient(110deg,#ffecd3,#ffdfb5)}
+.stat:nth-child(4){
+  background:linear-gradient(110deg,#e9ddff,#d9cafa)}
+.stat-icon{
+  width:59px;
+height:59px;
+display:grid;
+place-items:center;
+border-radius:50%;
+background:#1674d1;
+color:white;
+font-size:27px;
+flex-shrink:0}
+.stat:nth-child(2) .stat-icon{
+  background:#16a05a}
+.stat:nth-child(3) .stat-icon{
+  background:#ed7b13}
+.stat:nth-child(4) .stat-icon{
+  background:#7846c8}
+.stat-label{
+  font-weight:700;
+color:#31445e;
+margin-bottom:4px}
+.stat-number{
+  font-size:26px;
+font-weight:900;
+line-height:1.1;
+color:#102e56}
+.stat-sub{
+  font-size:12px;
+margin-top:4px;
+color:#42536b}
+.content-grid{
+  display:grid;
+grid-template-columns:minmax(0,1.55fr) minmax(310px,.9fr);
+gap:12px}
+.panel{
+  background:#fff;
+border:1px solid #e2eaf4;
+border-radius:13px;
+box-shadow:var(--shadow);
+padding:13px;
+min-width:0}
+.panel-head{
+  display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
+margin-bottom:11px}
+.panel-title{
+  font-size:16px;
+font-weight:800;
+color:#153d70;
+display:flex;
+align-items:center;
+gap:9px}
+.more{
+  border:0;
+background:transparent;
+color:#1765b4;
+font-weight:700;
+font-size:12px;
+white-space:nowrap}
+.news-layout{
+  display:grid;
+grid-template-columns:1.15fr .95fr;
+gap:12px}
+.feature-news{
+  min-width:0}
+.feature-image{
+  height:168px;
+border-radius:8px;
+background:linear-gradient(135deg,#153f68,#327eaa);
+display:grid;
+place-items:center;
+color:#fff;
+text-align:center;
+padding:15px;
+position:relative;
+overflow:hidden}
+.feature-image:before{
+  content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 25% 25%,#ffffff35,transparent 40%),linear-gradient(145deg,transparent,#001d4266)}
+.feature-image span{
+  position:relative;
+font-size:46px}
+.feature-image small{
+  position:relative;
+display:block;
+font-weight:700;
+line-height:1.4}
+.feature-news h3{
+  font-size:14px;
+line-height:1.4;
+margin:8px 0 5px;
+color:#172d4b}
+.meta{
+  font-size:11px;
+color:#718096;
+display:flex;
+gap:13px;
+flex-wrap:wrap}
+.news-list{
+  display:flex;
+flex-direction:column;
+gap:10px}
+.news-item{
+  display:grid;
+grid-template-columns:84px minmax(0,1fr);
+gap:9px;
+align-items:center}
+.thumb{
+  height:66px;
+border-radius:7px;
+background:linear-gradient(135deg,#287c9e,#0a3f71);
+display:grid;
+place-items:center;
+color:white;
+font-size:25px}
+.news-item h4{
+  font-size:13px;
+line-height:1.35;
+margin:0 0 5px;
+color:#233b5b}
+.calendar .panel-head{
+  margin-bottom:12px}
+.month-controls{
+  display:flex;
+align-items:center;
+gap:6px}
+.month-controls button{
+  border:1px solid var(--line);
+background:#f6f9fd;
+border-radius:6px;
+padding:3px 8px;
+color:#315578}
+.month-name{
+  font-weight:800;
+color:#183e6d;
+text-align:center;
+margin-bottom:8px}
+.calendar-grid{
+  display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:4px;
+text-align:center}
+.day-name{
+  background:#eaf0f8;
+padding:7px 2px;
+border-radius:5px;
+font-weight:700;
+color:#425875;
+font-size:11px}
+.day{
+  padding:7px 2px;
+border-radius:6px;
+background:#fbfcfe;
+color:#33445d;
+font-size:12px;
+border:1px solid #edf1f6;
+min-height:30px}
+.day.muted{
+  color:#aab4c2;
+background:#f5f7fa}
+.day.today{
+  background:#1267cb;
+color:white;
+font-weight:800;
+box-shadow:0 2px 5px #1267cb55}
+.day.event{
+  position:relative}
+.day.event:after{
+  content:"";
+position:absolute;
+width:5px;
+height:5px;
+border-radius:50%;
+background:#18a05a;
+bottom:2px;
+left:calc(50% - 2px)}
+.legend{
+  display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:10px;
+font-size:10px;
+color:#61718a}
+.dot{
+  display:inline-block;
+width:8px;
+height:8px;
+border-radius:50%;
+margin-right:4px}
+.bottom-grid{
+  display:grid;
+grid-template-columns:1.1fr 1.1fr 1fr;
+gap:12px;
+margin-top:12px}
+.library-grid{
+  display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:7px}
+.lib-item{
+  border-radius:9px;
+padding:12px 5px;
+text-align:center;
+background:#f0f5fc;
+border:1px solid #e6edf7;
+min-width:0}
+.lib-item:nth-child(2){
+  background:#eaf3ff}
+.lib-item:nth-child(3){
+  background:#eaf8f0}
+.lib-item:nth-child(4){
+  background:#f3edff}
+.lib-icon{
+  font-size:27px;
+margin-bottom:6px}
+.lib-item strong{
+  display:block;
+font-size:11px;
+line-height:1.3;
+color:#314762}
+.chart{
+  height:140px;
+display:flex;
+align-items:flex-end;
+justify-content:space-around;
+padding:12px 4px 0;
+border-bottom:1px solid #dce5ef;
+background:repeating-linear-gradient(to bottom,transparent 0 31px,#edf1f6 32px)}
+.bar-wrap{
+  height:100%;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+align-items:center;
+gap:5px;
+flex:1}
+.bar{
+  width:19px;
+border-radius:4px 4px 0 0;
+background:#2474d2;
+min-height:5px}
+.bar:nth-child(1){
+  background:#2474d2}
+.bar-label{
+  font-size:10px;
+color:#52647b}
+.chart-legend{
+  display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:9px;
+font-size:10px;
+color:#596b82}
+.quick-grid{
+  display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px}
+.quick{
+  border:1px solid #e5edf7;
+border-radius:8px;
+padding:11px 8px;
+background:#f2f7fd;
+color:#24517f;
+font-weight:700;
+display:flex;
+align-items:center;
+gap:7px;
+text-align:left;
+font-size:12px}
+.quick:nth-child(2){
+  background:#eef8f1;
+color:#247046}
+.quick:nth-child(3){
+  background:#fff4e9;
+color:#a95a13}
+.quick:nth-child(4){
+  background:#f4efff;
+color:#6744a5}
+.quick span{
+  font-size:20px}
+.footer{
+  text-align:center;
+color:#8291a5;
+font-size:11px;
+padding:16px 5px 3px}
+@media(max-width:1100px){
+  .stats{
+  grid-template-columns:repeat(2,1fr)}
+.bottom-grid{
+  grid-template-columns:1fr 1fr}
+.bottom-grid .panel:last-child{
+  grid-column:1/-1}
+.content-grid{
+  grid-template-columns:1fr}
+.calendar{
+  max-width:none}
+}
+@media(max-width:700px){
+  .hero{
+  background-position:center center}
+.topbar{
+  height:auto;
+min-height:72px;
+padding:10px 13px}
+.logo{
+  width:45px;
+height:45px;
+font-size:25px}
+.brand-name{
+  font-size:17px}
+.brand-small{
+  font-size:10px}
+.slogan{
+  font-size:10px}
+.top-right .datetime{
+  display:none}
+.user-name{
+  font-size:12px}
+.user-role{
+  font-size:10px}
+.avatar{
+  width:35px;
+height:35px}
+.hero{
+  height:125px}
+.hero h1{
+  font-size:23px}
+.hero p{
+  font-size:12px}
+.hero-left{
+  left:2%;
+font-size:25px}
+.hero-right{
+  right:2%;
+font-size:25px}
+.layout{
+  grid-template-columns:1fr}
+.sidebar{
+  display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:5px;
+padding:7px}
+.nav-item{
+  padding:8px 4px;
+justify-content:center;
+flex-direction:column;
+gap:3px;
+text-align:center;
+font-size:10px}
+.nav-icon{
+  font-size:17px}
+.nav-arrow,.side-sep,.side-note{
+  display:none}
+.main{
+  padding:9px}
+.stats{
+  gap:7px}
+.stat{
+  padding:9px;
+min-height:76px;
+gap:8px}
+.stat-icon{
+  width:42px;
+height:42px;
+font-size:20px}
+.stat-label{
+  font-size:11px}
+.stat-number{
+  font-size:20px}
+.stat-sub{
+  font-size:10px}
+.content-grid{
+  gap:9px}
+.news-layout{
+  grid-template-columns:1fr}
+.feature-image{
+  height:145px}
+.news-list{
+  display:grid;
+grid-template-columns:1fr 1fr}
+.news-item{
+  grid-template-columns:58px minmax(0,1fr);
+gap:6px}
+.thumb{
+  height:54px;
+font-size:20px}
+.news-item h4{
+  font-size:11px}
+.bottom-grid{
+  grid-template-columns:1fr}
+.bottom-grid .panel:last-child{
+  grid-column:auto}
+.panel{
+  padding:10px}
+.panel-title{
+  font-size:14px}
+.library-grid{
+  gap:5px}
+.lib-item{
+  padding:9px 3px}
+.lib-item strong{
+  font-size:10px}
+.quick{
+  font-size:11px;
+padding:9px 6px}
+}
+@media(max-width:390px){
+  .brand-name{
+  font-size:15px}
+.user{
+  gap:5px}
+.user-name{
+  max-width:75px;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap}
+.stats{
+  grid-template-columns:1fr 1fr}
+.news-list{
+  grid-template-columns:1fr}
+.calendar-grid{
+  gap:2px}
+.day{
+  padding:6px 1px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo" aria-label="Biểu trưng">⚓</div>
+    <div>
+<div class="brand-small">TIỂU ĐOÀN</div>
+<div class="brand-name">PHÒNG HỒ CHÍ MINH</div>
+<div class="slogan">Học tập Bác – Rèn luyện bản thân – Xây dựng đơn vị vững mạnh</div>
+</div>
+  </div>
+  <div class="top-right">
+    <div class="datetime" id="datetime">📅 Đang cập nhật...</div>
+    <div class="user">
+<div class="avatar">🪖</div>
+<div>
+<div class="user-name">Quản trị viên</div>
+<div class="user-role">Quản trị hệ thống</div>
+</div>
+<span>⌄</span>
+</div>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-left">★ 🇻🇳</div>
+  <div class="hero-copy">
+<h1>PHÒNG HỒ CHÍ MINH</h1>
+<p>Nơi lan tỏa tri thức – Nuôi dưỡng lý tưởng – Thắp sáng ước mơ</p>
+</div>
+  <div class="hero-right">⚓ 🌊</div>
+</section>
+<div class="layout">
+  <aside class="sidebar" aria-label="Điều hướng chính">
+    <button class="nav-item active" onclick="setActive(this)">
+<span class="nav-icon">⌂</span>Trang chủ</button>
+    <button class="nav-item" onclick="setActive(this)">
+<span class="nav-icon">▣</span>Thư viện điện tử <span class="nav-arrow">›</span>
+</button>
+    <button class="nav-item" onclick="setActive(this)">
+<span class="nav-icon">▦</span>Kế hoạch hoạt động <span class="nav-arrow">›</span>
+</button>
+    <button class="nav-item" onclick="setActive(this)">
+<span class="nav-icon">▧</span>Hình ảnh - Video <span class="nav-arrow">›</span>
+</button>
+    <button class="nav-item" onclick="setActive(this)">
+<span class="nav-icon">⚑</span>Tuyên truyền, giáo dục <span class="nav-arrow">›</span>
+</button>
+    <button class="nav-item" onclick="setActive(this)">
+<span class="nav-icon">▥</span>Thống kê - Báo cáo <span class="nav-arrow">›</span>
+</button>
+    <button class="nav-item" onclick="setActive(this)">
+<span class="nav-icon">⚙</span>Quản trị hệ thống <span class="nav-arrow">›</span>
+</button>
+    <div class="side-sep">
+</div>
+    <button class="nav-item" onclick="alert('Vui lòng liên hệ cán bộ quản trị hệ thống để được hỗ trợ.')">
+<span class="nav-icon">◉</span>Hỗ trợ kỹ thuật</button>
+    <button class="nav-item" onclick="alert('Chức năng đăng xuất sẽ được tích hợp khi xây dựng hệ thống tài khoản.')">
+<span class="nav-icon">⇥</span>Đăng xuất</button>
+    <div class="side-note">Đẩy mạnh<br>chuyển đổi số<br>trong đơn vị</div>
+  </aside>
+  <main class="main">
+    <section class="stats">
+      <div class="stat">
+<div class="stat-icon">▤</div>
+<div>
+<div class="stat-label">Tài liệu, tư liệu</div>
+<div class="stat-number">1.250</div>
+<div class="stat-sub">Tài liệu</div>
+</div>
+</div>
+      <div class="stat">
+<div class="stat-icon">▦</div>
+<div>
+<div class="stat-label">Hoạt động năm 2026</div>
+<div class="stat-number">24</div>
+<div class="stat-sub">Kế hoạch</div>
+</div>
+</div>
+      <div class="stat">
+<div class="stat-icon">▧</div>
+<div>
+<div class="stat-label">Hình ảnh, video</div>
+<div class="stat-number">520</div>
+<div class="stat-sub">Tư liệu</div>
+</div>
+</div>
+      <div class="stat">
+<div class="stat-icon">▥</div>
+<div>
+<div class="stat-label">Báo cáo</div>
+<div class="stat-number">12</div>
+<div class="stat-sub">Báo cáo</div>
+</div>
+</div>
+    </section>
+    <section class="content-grid">
+      <div class="panel">
+        <div class="panel-head">
+<div class="panel-title">
+<span>📢</span>Tin tức - Sự kiện nổi bật</div>
+<button class="more">Xem thêm →</button>
+</div>
+        <div class="news-layout">
+          <article class="feature-news">
+<div class="feature-image">
+<span>🎖️</span>
+<small>HOẠT ĐỘNG GIÁO DỤC CHÍNH TRỊ<br>PHÒNG HỒ CHÍ MINH</small>
+</div>
+<h3>Sinh hoạt chính trị với chủ đề “Học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh”</h3>
+<div class="meta">
+<span>▣ 10/11/2026</span>
+<span>◉ 789 lượt xem</span>
+</div>
+</article>
+          <div class="news-list">
+            <article class="news-item">
+<div class="thumb">📚</div>
+<div>
+<h4>Tổ chức hoạt động đọc sách báo tại Phòng Hồ Chí Minh</h4>
+<div class="meta">◷ 10/11/2026</div>
+</div>
+</article>
+            <article class="news-item">
+<div class="thumb">🎭</div>
+<div>
+<h4>Giao lưu văn nghệ chào mừng Ngày Nhà giáo Việt Nam 20/11</h4>
+<div class="meta">◷ 05/11/2026</div>
+</div>
+</article>
+            <article class="news-item">
+<div class="thumb">🏆</div>
+<div>
+<h4>Phát động phong trào thi đua xây dựng đơn vị vững mạnh</h4>
+<div class="meta">◷ 01/11/2026</div>
+</div>
+</article>
+          </div>
+        </div>
+      </div>
+      <div class="panel calendar">
+        <div class="panel-head">
+<div class="panel-title">
+<span>🗓️</span>Lịch hoạt động</div>
+<div class="month-controls">
+<button onclick="changeMonth(-1)" aria-label="Tháng trước">‹</button>
+<button onclick="changeMonth(1)" aria-label="Tháng sau">›</button>
+</div>
+</div>
+        <div class="month-name" id="monthName">
+</div>
+<div class="calendar-grid" id="calendarGrid">
+</div>
+        <div class="legend">
+<span>
+<i class="dot" style="background:#1475d1">
+</i>Hoạt động Phòng HCM</span>
+<span>
+<i class="dot" style="background:#18a05a">
+</i>Hoạt động đơn vị</span>
+<span>
+<i class="dot" style="background:#f29b24">
+</i>Khác</span>
+</div>
+      </div>
+    </section>
+    <section class="bottom-grid">
+      <div class="panel">
+<div class="panel-head">
+<div class="panel-title">📘 Thư viện điện tử</div>
+<button class="more">Xem tất cả →</button>
+</div>
+<div class="library-grid">
+<div class="lib-item">
+<div class="lib-icon">📕</div>
+<strong>Tài liệu<br>tuyên truyền</strong>
+</div>
+<div class="lib-item">
+<div class="lib-icon">📘</div>
+<strong>Sách, Báo</strong>
+</div>
+<div class="lib-item">
+<div class="lib-icon">🎬</div>
+<strong>Video<br>giáo dục</strong>
+</div>
+<div class="lib-item">
+<div class="lib-icon">🖼️</div>
+<strong>Tư liệu<br>lịch sử</strong>
+</div>
+</div>
+</div>
+      <div class="panel">
+<div class="panel-head">
+<div class="panel-title">📊 Kết quả hoạt động</div>
+<button class="more">Xem chi tiết →</button>
+</div>
+<div class="chart">
+<div class="bar-wrap">
+<div class="bar" style="height:65%">
+</div>
+<span class="bar-label">T7</span>
+</div>
+<div class="bar-wrap">
+<div class="bar" style="height:82%;
+background:#19a45b">
+</div>
+<span class="bar-label">T8</span>
+</div>
+<div class="bar-wrap">
+<div class="bar" style="height:65%;
+background:#f07824">
+</div>
+<span class="bar-label">T9</span>
+</div>
+<div class="bar-wrap">
+<div class="bar" style="height:78%;
+background:#f2a51e">
+</div>
+<span class="bar-label">T10</span>
+</div>
+<div class="bar-wrap">
+<div class="bar" style="height:72%;
+background:#784bc6">
+</div>
+<span class="bar-label">T11</span>
+</div>
+</div>
+<div class="chart-legend">
+<span>🔵 Văn hóa - Văn nghệ</span>
+<span>🟢 Thể dục thể thao</span>
+<span>🟠 Đọc sách, báo</span>
+</div>
+</div>
+      <div class="panel">
+<div class="panel-head">
+<div class="panel-title">🔗 Liên kết nhanh</div>
+</div>
+<div class="quick-grid">
+<button class="quick">
+<span>⭐</span>Học tập và làm theo Bác</button>
+<button class="quick">
+<span>🛡️</span>Pháp luật Quân đội</button>
+<button class="quick">
+<span>🏆</span>Phong trào thi đua</button>
+<button class="quick">
+<span>⚙️</span>Thông tin đơn vị</button>
+</div>
+</div>
+    </section>
+    <div class="footer">TRANG ĐIỆN TỬ QUẢN LÝ HOẠT ĐỘNG PHÒNG HỒ CHÍ MINH CẤP TIỂU ĐOÀN</div>
+  </main>
+</div>
+<script>
+function updateClock(){
+  const d=new Date();
+const days=['Chủ nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+document.getElementById('datetime').textContent='▦ '+days[d.getDay()]+', '+d.toLocaleDateString('vi-VN')+' | '+d.toLocaleTimeString('vi-VN',{
+  hour:'2-digit',minute:'2-digit'}
+);
+}
+updateClock();
+setInterval(updateClock,30000);
+function setActive(el){
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+el.classList.add('active');
+}
+let shown=new Date(2026,10,1);
+function renderCalendar(){
+  const y=shown.getFullYear(),m=shown.getMonth();
+const names=['Tháng Một','Tháng Hai','Tháng Ba','Tháng Tư','Tháng Năm','Tháng Sáu','Tháng Bảy','Tháng Tám','Tháng Chín','Tháng Mười','Tháng Mười Một','Tháng Mười Hai'];
+document.getElementById('monthName').textContent=names[m]+' '+y;
+const grid=document.getElementById('calendarGrid');
+grid.innerHTML='';
+['T2','T3','T4','T5','T6','T7','CN'].forEach(n=>{
+  const e=document.createElement('div');
+e.className='day-name';
+e.textContent=n;
+grid.appendChild(e)}
+);
+const first=(new Date(y,m,1).getDay()+6)%7;
+const count=new Date(y,m+1,0).getDate();
+const prev=new Date(y,m,0).getDate();
+for(let i=0;
+i<42;
+i++){
+  let day,cls='day';
+if(i<first){
+  day=prev-first+i+1;
+cls+=' muted'}
+else if(i>=first+count){
+  day=i-first-count+1;
+cls+=' muted'}
+else{
+  day=i-first+1;
+if([5,11,20,25].includes(day))cls+=' event';
+if(y===2026&&m===10&&day===13)cls+=' today'}
+const e=document.createElement('div');
+e.className=cls;
+e.textContent=day;
+grid.appendChild(e);
+}
+}
+function changeMonth(n){
+  shown.setMonth(shown.getMonth()+n);
+renderCalendar()}
+renderCalendar();
+</script>
+</body>
+</html>

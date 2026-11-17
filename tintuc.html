@@ -1,0 +1,437 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tin tức - Quốc phòng An ninh</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f3f6fa;
+    color: #263445;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header {
+    background: #12345a;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 6px solid #d92332;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 23px;
+    text-transform: uppercase;
+}
+
+.header p {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: #dce7f4;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+/* NÚT QUAY LẠI TRANG CHỦ */
+.back-button {
+    display: inline-block;
+    background: #64748b;
+    color: white;
+    padding: 9px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-button:hover {
+    background: #475569;
+}
+
+.status {
+    font-size: 13px;
+    color: #64748b;
+}
+
+button {
+    border: none;
+    background: #12345a;
+    color: white;
+    padding: 9px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d527f;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.news-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 9px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e5eaf0;
+}
+
+.news-image {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    background: #e2e8f0;
+}
+
+.news-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.news-date {
+    color: #d92332;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+.news-title {
+    color: #12345a;
+    font-size: 17px;
+    line-height: 1.45;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.news-title:hover {
+    color: #d92332;
+}
+
+.news-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #526174;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    margin-top: auto;
+    color: #c51f30;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+.message {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    color: #64748b;
+    grid-column: 1 / -1;
+}
+
+.footer {
+    text-align: center;
+    color: #718096;
+    font-size: 12px;
+    margin-top: 25px;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 10px;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .news-image {
+        height: 190px;
+    }
+
+    .header h2 {
+        font-size: 19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h2>📢 Tin tức - Quốc phòng An ninh</h2>
+        <p>Cập nhật tin tức từ Báo Quân đội nhân dân</p>
+    </div>
+
+    <div class="toolbar">
+
+        <!-- NÚT QUAY LẠI TRANG CHỦ -->
+        <a href="index.html" class="back-button">
+            ← Quay lại trang chủ
+        </a>
+
+        <div class="status" id="status">
+            Đang kết nối nguồn tin...
+        </div>
+
+        <button onclick="loadNews()">
+            ↻ Cập nhật tin
+        </button>
+
+    </div>
+
+    <div class="news-grid" id="newsList">
+        <div class="message">Đang tải tin tức...</div>
+    </div>
+
+    <div class="footer">
+        Nguồn tin: Báo Quân đội nhân dân -
+        <a href="https://www.qdnd.vn/quoc-phong-an-ninh"
+           target="_blank">Xem chuyên mục gốc</a>
+    </div>
+
+</div>
+
+<script>
+
+/**************************************************
+ * CẤU HÌNH NGUỒN TIN
+ **************************************************/
+
+const RSS_URL =
+"https://www.qdnd.vn/rss/cate/quoc-phong-an-ninh-3424.rss";
+
+const API_URL =
+"https://api.rss2json.com/v1/api.json?rss_url="
++ encodeURIComponent(RSS_URL);
+
+
+/**************************************************
+ * LÀM SẠCH NỘI DUNG HTML
+ **************************************************/
+
+function removeHTML(html) {
+    const doc = new DOMParser().parseFromString(
+        html || "", "text/html"
+    );
+
+    return (doc.body.textContent || "").trim();
+}
+
+
+/**************************************************
+ * LẤY ẢNH BÀI VIẾT
+ **************************************************/
+
+function getImage(item) {
+    if (item.thumbnail) return item.thumbnail;
+
+    if (item.enclosure && item.enclosure.link) {
+        return item.enclosure.link;
+    }
+
+    const content = item.content || item.description || "";
+    const match = content.match(/<img[^>]+src=["']([^"']+)["']/i);
+
+    return match ? match[1] : "";
+}
+
+
+/**************************************************
+ * ĐỊNH DẠNG NGÀY
+ **************************************************/
+
+function formatDate(dateString) {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) return dateString;
+
+    return date.toLocaleDateString("vi-VN");
+}
+
+
+/**************************************************
+ * CHỐNG LỖI HIỂN THỊ HTML
+ **************************************************/
+
+function escapeHTML(value) {
+    return String(value || "").replace(/[&<>"']/g, function(char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
+    });
+}
+
+
+/**************************************************
+ * HIỂN THỊ DANH SÁCH TIN
+ **************************************************/
+
+function renderNews(items) {
+    const newsList = document.getElementById("newsList");
+
+    if (!items || items.length === 0) {
+        newsList.innerHTML =
+            '<div class="message">Chưa có tin tức để hiển thị.</div>';
+        return;
+    }
+
+    newsList.innerHTML = items.map(function(item) {
+        const title = escapeHTML(item.title);
+        const link = item.link || "#";
+        const date = formatDate(item.pubDate);
+        const image = getImage(item);
+
+        const description = removeHTML(
+            item.description || item.content || ""
+        );
+
+        const shortDescription = escapeHTML(
+            description.length > 230
+                ? description.substring(0, 230) + "..."
+                : description
+        );
+
+        const imageHTML = image
+            ? `<img class="news-image"
+                    src="${escapeHTML(image)}"
+                    alt="${title}"
+                    loading="lazy"
+                    onerror="this.style.display='none'">`
+            : "";
+
+        return `
+            <article class="news-card">
+                ${imageHTML}
+
+                <div class="news-content">
+                    <div class="news-date">
+                        ◷ ${escapeHTML(date)}
+                    </div>
+
+                    <a class="news-title"
+                       href="${escapeHTML(link)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        ${title}
+                    </a>
+
+                    <div class="news-description">
+                        ${shortDescription}
+                    </div>
+
+                    <a class="read-more"
+                       href="${escapeHTML(link)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        ĐỌC BÀI GỐC →
+                    </a>
+                </div>
+            </article>
+        `;
+    }).join("");
+}
+
+
+/**************************************************
+ * TẢI TIN TỨC
+ **************************************************/
+
+async function loadNews() {
+    const newsList = document.getElementById("newsList");
+    const status = document.getElementById("status");
+
+    status.textContent = "Đang cập nhật tin tức...";
+
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("Không kết nối được nguồn tin.");
+        }
+
+        const data = await response.json();
+
+        if (data.status !== "ok") {
+            throw new Error(data.message || "Nguồn RSS trả về lỗi.");
+        }
+
+        renderNews(data.items);
+
+        status.textContent =
+            "Đã tải " + data.items.length +
+            " tin | Cập nhật lúc " +
+            new Date().toLocaleTimeString("vi-VN");
+
+    } catch (error) {
+        newsList.innerHTML = `
+            <div class="message">
+                <strong>Không tải được tin tức.</strong>
+                <p>${escapeHTML(error.message)}</p>
+                <p>Bạn hãy thử nhấn nút Cập nhật tin sau.</p>
+            </div>
+        `;
+
+        status.textContent = "Lỗi kết nối nguồn RSS.";
+        console.error(error);
+    }
+}
+
+
+/**************************************************
+ * KHỞI ĐỘNG
+ **************************************************/
+
+// Tải tin khi mở trang
+loadNews();
+
+// Tự kiểm tra cập nhật sau mỗi 15 phút
+setInterval(loadNews, 15 * 60 * 1000);
+
+</script>
+
+</body>
+</html>

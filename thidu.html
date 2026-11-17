@@ -1,0 +1,863 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phong trào thi đua yêu nước - Phòng Hồ Chí Minh</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --navy: #12345a;
+    --red: #c92532;
+    --gold: #d9ad55;
+    --text: #263445;
+    --muted: #64748b;
+    --light: #f3f6fa;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.65;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* HEADER */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #102c4c, #1b5278);
+    color: white;
+    border-radius: 12px;
+    padding: 45px 35px;
+    text-align: center;
+    border-bottom: 5px solid var(--gold);
+}
+
+.hero::before {
+    content: "★";
+    position: absolute;
+    font-size: 180px;
+    color: rgba(255,255,255,0.045);
+    right: 35px;
+    top: -45px;
+}
+
+.hero .subtitle {
+    color: #f3d78f;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: 30px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #e2edf7;
+    font-size: 16px;
+}
+
+/* TOOLBAR */
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 17px;
+    background: #64748b;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    background: #475569;
+}
+
+.toolbar-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* SECTION */
+
+.section {
+    margin-top: 28px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 17px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e1e7ef;
+}
+
+.section-heading .number {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--red);
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.section-heading h2 {
+    color: var(--navy);
+    font-size: 21px;
+    text-transform: uppercase;
+}
+
+/* LỜI DẠY CỦA BÁC */
+
+.quote-box {
+    background: white;
+    border-left: 5px solid var(--gold);
+    padding: 28px;
+    border-radius: 9px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.quote-box .quote-mark {
+    color: var(--red);
+    font-size: 42px;
+    line-height: 1;
+    font-family: Georgia, serif;
+}
+
+.quote-box h2 {
+    color: var(--navy);
+    font-size: 23px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.quote-box p {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* GIÁ TRỊ CỐT LÕI */
+
+.core-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.core-card {
+    background: white;
+    padding: 22px;
+    border-radius: 9px;
+    border: 1px solid #e5eaf0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: 0.2s;
+}
+
+.core-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.09);
+}
+
+.core-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.core-card h3 {
+    color: var(--navy);
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+.core-card p {
+    color: #586779;
+    font-size: 14px;
+}
+
+/* PHONG TRÀO */
+
+.movement-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.movement-card {
+    background: white;
+    border-radius: 9px;
+    padding: 22px;
+    display: flex;
+    gap: 16px;
+    border: 1px solid #e5eaf0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.movement-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #edf3f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.movement-card h3 {
+    color: var(--navy);
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.movement-card p {
+    color: #586779;
+    font-size: 14px;
+}
+
+/* DÒNG THỜI GIAN */
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 5px;
+    bottom: 5px;
+    width: 3px;
+    background: #d9ad55;
+}
+
+.timeline-item {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    border: 1px solid #e5eaf0;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -29px;
+    top: 23px;
+    width: 13px;
+    height: 13px;
+    background: var(--red);
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--gold);
+}
+
+.timeline-item .year {
+    color: var(--red);
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.timeline-item h3 {
+    color: var(--navy);
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.timeline-item p {
+    color: #586779;
+    font-size: 14px;
+}
+
+/* LIÊN HỆ THỰC TIỄN */
+
+.application {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #e5eaf0;
+}
+
+.application h3 {
+    color: var(--navy);
+    font-size: 18px;
+    margin: 15px 0 8px;
+}
+
+.application p {
+    color: #526174;
+    font-size: 14px;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+.application ul {
+    padding-left: 23px;
+    color: #526174;
+    font-size: 14px;
+}
+
+.application li {
+    margin-bottom: 8px;
+}
+
+/* KHẨU HIỆU */
+
+.slogan {
+    background: linear-gradient(135deg, #9d1e2b, #c52b37);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 28px;
+}
+
+.slogan h2 {
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.slogan p {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.8;
+    color: #fff2d6;
+}
+
+/* KẾT THÚC */
+
+.conclusion {
+    text-align: center;
+    background: white;
+    padding: 25px;
+    border-radius: 9px;
+    margin-top: 25px;
+    border: 1px solid #e5eaf0;
+}
+
+.conclusion h3 {
+    color: var(--navy);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.conclusion p {
+    color: #526174;
+    font-size: 15px;
+}
+
+.footer {
+    text-align: center;
+    color: #718096;
+    font-size: 12px;
+    padding: 25px 10px 10px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 750px) {
+    .container {
+        padding: 12px;
+    }
+
+    .hero {
+        padding: 32px 18px;
+    }
+
+    .hero h1 {
+        font-size: 22px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .core-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .movement-list {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2 {
+        font-size: 17px;
+    }
+
+    .quote-box h2 {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 430px) {
+    .core-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .movement-card {
+        padding: 16px;
+    }
+
+    .toolbar {
+        align-items: flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- TIÊU ĐỀ -->
+    <header class="hero">
+        <div class="subtitle">Phòng Hồ Chí Minh - Tiểu đoàn</div>
+
+        <h1>
+            Phong trào thi đua yêu nước
+        </h1>
+
+        <p>
+            Phát huy truyền thống cách mạng - Đoàn kết, sáng tạo,
+            quyết tâm hoàn thành xuất sắc mọi nhiệm vụ
+        </p>
+    </header>
+
+    <!-- THANH CÔNG CỤ -->
+    <div class="toolbar">
+
+        <a href="index.html" class="back-button">
+            ← Quay lại trang chủ
+        </a>
+
+        <div class="toolbar-label">
+            Học tập tư tưởng, đạo đức, phong cách Hồ Chí Minh
+        </div>
+
+    </div>
+
+    <!-- LỜI DẠY CỦA BÁC -->
+    <section class="section">
+
+        <div class="quote-box">
+            <div class="quote-mark">“</div>
+
+            <h2>
+                Thi đua là yêu nước, yêu nước thì phải thi đua,
+                và những người thi đua là những người yêu nước nhất.
+            </h2>
+
+            <p>
+                Chủ tịch Hồ Chí Minh - Lời kêu gọi thi đua ái quốc,
+                ngày 11 tháng 6 năm 1948
+            </p>
+        </div>
+
+    </section>
+
+    <!-- TƯ TƯỞNG CỐT LÕI -->
+    <section class="section">
+
+        <div class="section-heading">
+            <div class="number">01</div>
+            <h2>Tư tưởng thi đua yêu nước của Bác</h2>
+        </div>
+
+        <div class="core-grid">
+
+            <div class="core-card">
+                <div class="core-icon">🇻🇳</div>
+                <h3>Thi đua vì Tổ quốc</h3>
+                <p>
+                    Thi đua phải xuất phát từ lòng yêu nước,
+                    tinh thần trách nhiệm và khát vọng xây dựng,
+                    bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa.
+                </p>
+            </div>
+
+            <div class="core-card">
+                <div class="core-icon">🤝</div>
+                <h3>Đoàn kết, rộng khắp</h3>
+                <p>
+                    Thi đua phải trở thành phong trào của mọi người,
+                    mọi ngành, mọi cấp; phát huy sức mạnh đoàn kết
+                    và tinh thần tập thể.
+                </p>
+            </div>
+
+            <div class="core-card">
+                <div class="core-icon">⭐</div>
+                <h3>Nêu gương người tốt</h3>
+                <p>
+                    Kịp thời phát hiện, biểu dương và nhân rộng
+                    những tập thể, cá nhân có thành tích tốt,
+                    những việc làm thiết thực và ý nghĩa.
+                </p>
+            </div>
+
+            <div class="core-card">
+                <div class="core-icon">🎯</div>
+                <h3>Thi đua thiết thực</h3>
+                <p>
+                    Thi đua phải gắn với nhiệm vụ cụ thể,
+                    có mục tiêu rõ ràng, kết quả thực chất,
+                    tránh hình thức và chạy theo thành tích.
+                </p>
+            </div>
+
+            <div class="core-card">
+                <div class="core-icon">🌱</div>
+                <h3>Không ngừng tiến bộ</h3>
+                <p>
+                    Mỗi người phải tự giác học tập, rèn luyện,
+                    khắc phục khó khăn, phát huy sáng kiến
+                    và không ngừng vươn lên.
+                </p>
+            </div>
+
+            <div class="core-card">
+                <div class="core-icon">🏅</div>
+                <h3>Khen thưởng kịp thời</h3>
+                <p>
+                    Ghi nhận đúng người, đúng việc, đúng thành tích;
+                    lấy hiệu quả công việc và sự tiến bộ
+                    làm thước đo của phong trào thi đua.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- LỊCH SỬ -->
+    <section class="section">
+
+        <div class="section-heading">
+            <div class="number">02</div>
+            <h2>Dấu mốc phong trào thi đua yêu nước</h2>
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <div class="year">11/6/1948</div>
+                <h3>Lời kêu gọi thi đua ái quốc</h3>
+                <p>
+                    Chủ tịch Hồ Chí Minh ra Lời kêu gọi thi đua ái quốc,
+                    khơi dậy tinh thần yêu nước, ý chí tự lực tự cường
+                    và sức mạnh đoàn kết của toàn dân tộc trong sự
+                    nghiệp kháng chiến, kiến quốc.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="year">Giai đoạn kháng chiến</div>
+                <h3>Thi đua diệt giặc đói, giặc dốt, giặc ngoại xâm</h3>
+                <p>
+                    Các phong trào tăng gia sản xuất, thực hành tiết kiệm,
+                    bình dân học vụ, xây dựng hậu phương và phục vụ
+                    tiền tuyến được phát triển mạnh mẽ.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="year">Giai đoạn xây dựng miền Bắc</div>
+                <h3>Người tốt, việc tốt - lao động sản xuất</h3>
+                <p>
+                    Bác quan tâm phát hiện, động viên và nhân rộng
+                    những tấm gương lao động giỏi, chiến đấu giỏi,
+                    học tập tốt, công tác tốt; tạo động lực thi đua
+                    trong toàn xã hội.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="year">Giá trị tiếp nối hôm nay</div>
+                <h3>Thi đua xây dựng và bảo vệ Tổ quốc</h3>
+                <p>
+                    Tư tưởng thi đua yêu nước của Bác tiếp tục được
+                    vận dụng sáng tạo trong các phong trào thi đua
+                    của toàn Đảng, toàn dân và toàn quân,
+                    phù hợp với yêu cầu nhiệm vụ trong tình hình mới.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- PHONG TRÀO VẬN DỤNG TRONG QUÂN ĐỘI -->
+    <section class="section">
+
+        <div class="section-heading">
+            <div class="number">03</div>
+            <h2>Vận dụng trong phong trào thi đua của đơn vị</h2>
+        </div>
+
+        <div class="movement-list">
+
+            <div class="movement-card">
+                <div class="movement-icon">🎖️</div>
+                <div>
+                    <h3>Thi đua huấn luyện giỏi</h3>
+                    <p>
+                        Tích cực học tập, rèn luyện, nâng cao trình độ
+                        chuyên môn, làm chủ vũ khí trang bị kỹ thuật;
+                        quyết tâm hoàn thành tốt các nội dung, chương
+                        trình huấn luyện.
+                    </p>
+                </div>
+            </div>
+
+            <div class="movement-card">
+                <div class="movement-icon">🛡️</div>
+                <div>
+                    <h3>Thi đua sẵn sàng chiến đấu cao</h3>
+                    <p>
+                        Nêu cao tinh thần cảnh giác, chấp hành nghiêm
+                        chế độ trực, chủ động nắm chắc tình hình,
+                        không để bị động, bất ngờ trong mọi tình huống.
+                    </p>
+                </div>
+            </div>
+
+            <div class="movement-card">
+                <div class="movement-icon">📚</div>
+                <div>
+                    <h3>Thi đua học tập và làm theo Bác</h3>
+                    <p>
+                        Mỗi cán bộ, chiến sĩ tự giác tu dưỡng,
+                        rèn luyện phẩm chất đạo đức, lối sống,
+                        tinh thần trách nhiệm; nói đi đôi với làm,
+                        lấy kết quả thực hiện nhiệm vụ làm thước đo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="movement-card">
+                <div class="movement-icon">⚔️</div>
+                <div>
+                    <h3>Thi đua xây dựng chính quy, chấp hành kỷ luật</h3>
+                    <p>
+                        Duy trì nghiêm nền nếp, chế độ công tác;
+                        xây dựng đơn vị có môi trường văn hóa lành mạnh,
+                        đoàn kết, thống nhất, kỷ luật nghiêm minh.
+                    </p>
+                </div>
+            </div>
+
+            <div class="movement-card">
+                <div class="movement-icon">🌿</div>
+                <div>
+                    <h3>Thi đua tăng gia sản xuất, thực hành tiết kiệm</h3>
+                    <p>
+                        Phát huy tinh thần cần cù, sáng tạo,
+                        chủ động cải thiện đời sống bộ đội,
+                        quản lý và sử dụng hiệu quả cơ sở vật chất,
+                        trang bị của đơn vị.
+                    </p>
+                </div>
+            </div>
+
+            <div class="movement-card">
+                <div class="movement-icon">🏃</div>
+                <div>
+                    <h3>Thi đua rèn luyện thể lực</h3>
+                    <p>
+                        Tích cực tham gia các hoạt động thể dục,
+                        thể thao; nâng cao sức khỏe, sức bền,
+                        khả năng cơ động và ý chí vượt khó
+                        của cán bộ, chiến sĩ.
+                    </p>
+                </div>
+            </div>
+
+            <div class="movement-card">
+                <div class="movement-icon">💡</div>
+                <div>
+                    <h3>Thi đua đổi mới, sáng tạo</h3>
+                    <p>
+                        Phát huy sáng kiến, cải tiến kỹ thuật,
+                        ứng dụng công nghệ và chuyển đổi số
+                        trong quản lý, huấn luyện và thực hiện
+                        nhiệm vụ của đơn vị.
+                    </p>
+                </div>
+            </div>
+
+            <div class="movement-card">
+                <div class="movement-icon">❤️</div>
+                <div>
+                    <h3>Thi đua xây dựng tình đoàn kết</h3>
+                    <p>
+                        Quan tâm giúp đỡ đồng chí, đồng đội;
+                        xây dựng mối quan hệ đoàn kết quân dân,
+                        phát huy tinh thần trách nhiệm,
+                        tình đồng chí, đồng đội.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- NỘI DUNG THỰC HIỆN -->
+    <section class="section">
+
+        <div class="section-heading">
+            <div class="number">04</div>
+            <h2>Trách nhiệm của mỗi cán bộ, chiến sĩ</h2>
+        </div>
+
+        <div class="application">
+
+            <p>
+                Học tập và làm theo tư tưởng thi đua yêu nước của
+                Chủ tịch Hồ Chí Minh không chỉ dừng lại ở nhận thức
+                mà phải được cụ thể hóa bằng hành động thiết thực
+                trong từng nhiệm vụ, từng công việc hằng ngày.
+                Mỗi cán bộ, chiến sĩ cần xác định rõ trách nhiệm
+                của bản thân, tự giác phấn đấu và tích cực tham gia
+                các phong trào thi đua của đơn vị.
+            </p>
+
+            <h3>Đối với cán bộ</h3>
+            <ul>
+                <li>
+                    Nêu cao tinh thần trách nhiệm, tính tiền phong,
+                    gương mẫu trong công tác và sinh hoạt.
+                </li>
+                <li>
+                    Chủ động đổi mới phương pháp lãnh đạo, chỉ huy,
+                    quản lý và tổ chức thực hiện nhiệm vụ.
+                </li>
+                <li>
+                    Quan tâm xây dựng đoàn kết nội bộ,
+                    phát hiện và bồi dưỡng những nhân tố tích cực.
+                </li>
+            </ul>
+
+            <h3>Đối với chiến sĩ</h3>
+            <ul>
+                <li>
+                    Tích cực học tập, rèn luyện, chấp hành nghiêm
+                    pháp luật Nhà nước, kỷ luật Quân đội và quy định
+                    của đơn vị.
+                </li>
+                <li>
+                    Không ngại khó khăn, gian khổ; chủ động khắc phục
+                    hạn chế, quyết tâm hoàn thành tốt nhiệm vụ được giao.
+                </li>
+                <li>
+                    Đoàn kết, giúp đỡ đồng chí, đồng đội,
+                    xây dựng môi trường văn hóa quân sự lành mạnh.
+                </li>
+            </ul>
+
+            <h3>Đối với tập thể đơn vị</h3>
+            <ul>
+                <li>
+                    Xây dựng nội dung, chỉ tiêu thi đua sát với
+                    nhiệm vụ chính trị và tình hình thực tiễn.
+                </li>
+                <li>
+                    Duy trì phong trào thường xuyên, liên tục,
+                    có kiểm tra, đánh giá và sơ kết, tổng kết.
+                </li>
+                <li>
+                    Kịp thời biểu dương, khen thưởng những tập thể,
+                    cá nhân tiêu biểu; nhân rộng những cách làm hay,
+                    sáng tạo và hiệu quả.
+                </li>
+            </ul>
+
+        </div>
+
+    </section>
+
+    <!-- KHẨU HIỆU THI ĐUA -->
+    <section class="slogan">
+
+        <h2>Khẩu hiệu hành động</h2>
+
+        <p>
+            ĐOÀN KẾT - KỶ LUẬT - TRÁCH NHIỆM - SÁNG TẠO<br>
+            THI ĐUA GIỎI - HUẤN LUYỆN GIỎI - SẴN SÀNG CHIẾN ĐẤU CAO<br>
+            QUYẾT TÂM HOÀN THÀNH XUẤT SẮC MỌI NHIỆM VỤ
+        </p>
+
+    </section>
+
+    <!-- KẾT LUẬN -->
+    <section class="conclusion">
+
+        <h3>Phát huy tinh thần thi đua yêu nước theo lời Bác</h3>
+
+        <p>
+            Thi đua yêu nước là động lực quan trọng khơi dậy
+            lòng yêu nước, ý chí tự lực, tự cường và tinh thần
+            cống hiến của mỗi cán bộ, chiến sĩ. Mỗi việc làm tốt,
+            mỗi thành tích trong huấn luyện, công tác và rèn luyện
+            đều góp phần xây dựng đơn vị vững mạnh toàn diện,
+            hoàn thành thắng lợi mọi nhiệm vụ được giao.
+        </p>
+
+        <p style="margin-top:15px; color:#c92532; font-weight:bold;">
+            Mỗi người một việc tốt - Mỗi ngày một tiến bộ -
+            Mỗi tập thể một thành tích mới!
+        </p>
+
+    </section>
+
+    <footer class="footer">
+        PHÒNG HỒ CHÍ MINH - TIỂU ĐOÀN
+        <br>
+        Học tập và làm theo tư tưởng, đạo đức, phong cách Hồ Chí Minh
+    </footer>
+
+</div>
+
+</body>
+</html>

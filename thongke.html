@@ -1,0 +1,1217 @@
+﻿html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b78">
+<title>Thống kê - Phòng Hồ Chí Minh</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root {
+    --navy: #073b78;
+    --blue: #0755a5;
+    --gold: #e5bd54;
+    --light: #f3f7fc;
+    --text: #20334b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        linear-gradient(rgba(5,35,75,.76),rgba(5,35,75,.76)),
+        url("background.jpg") center/cover fixed;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(110deg,#052c5b,#0755a5);
+    color: white;
+    padding: 20px 25px;
+    border-bottom: 4px solid var(--gold);
+    box-shadow: 0 4px 15px rgba(0,0,0,.25);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 23px;
+    letter-spacing: 1px;
+}
+
+.header-title p {
+    margin: 7px 0 0;
+    color: #e8d28e;
+    font-size: 13px;
+}
+
+.back-btn {
+    background: var(--gold);
+    color: #17345b;
+    padding: 10px 17px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 0 15px 35px;
+}
+
+.page-heading {
+    color: white;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.page-heading h2 {
+    font-size: 27px;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+}
+
+.page-heading p {
+    color: #e6edf8;
+    margin: 0;
+}
+
+.status {
+    padding: 12px 15px;
+    background: white;
+    border-radius: 9px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.12);
+}
+
+.status.error {
+    color: #a52d2d;
+    border-left: 4px solid #b83b36;
+}
+
+.status.success {
+    color: #176c43;
+    border-left: 4px solid #16834b;
+}
+
+.filter-box {
+    background: white;
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.15);
+    margin-bottom: 22px;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+.filter-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: var(--navy);
+}
+
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccd6e3;
+    border-radius: 7px;
+    font-size: 14px;
+    background: white;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    border-radius: 7px;
+    padding: 11px 16px;
+    font-weight: bold;
+    font-size: 14px;
+    transition: .2s;
+}
+
+button:hover {
+    opacity: .88;
+    transform: translateY(-1px);
+}
+
+.btn-primary { background: var(--blue); color: white; }
+.btn-green { background: #16834b; color: white; }
+.btn-red { background: #b83b36; color: white; }
+.btn-gold { background: var(--gold); color: #17345b; }
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 13px;
+    padding: 20px;
+    border-top: 4px solid var(--gold);
+    box-shadow: 0 5px 18px rgba(0,0,0,.15);
+}
+
+.stat-label {
+    color: #63748a;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--navy);
+    margin: 12px 0 5px;
+}
+
+.stat-card small {
+    color: #7b8796;
+}
+
+.stat-number.pending {
+    font-size: 19px;
+    color: #a36d12;
+    margin-top: 17px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.panel, .table-panel {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.15);
+    min-width: 0;
+}
+
+.panel h3, .table-heading h3 {
+    margin: 0 0 18px;
+    color: var(--navy);
+    font-size: 17px;
+    border-bottom: 2px solid #e6edf5;
+    padding-bottom: 12px;
+}
+
+.chart-wrap {
+    position: relative;
+    height: 300px;
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.table-heading h3 {
+    margin: 0;
+}
+
+.table-scroll { overflow-x: auto; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th {
+    background: var(--navy);
+    color: white;
+    padding: 13px 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e3eaf2;
+    text-align: center;
+    font-size: 14px;
+}
+
+td:nth-child(2) { text-align: left; }
+
+tbody tr:hover { background: #f1f6fc; }
+
+.total-row {
+    background: #edf3fb;
+    font-weight: bold;
+    color: var(--navy);
+}
+
+.note {
+    color: #65758a;
+    font-size: 12px;
+    margin-top: 14px;
+}
+
+.report-footer {
+    display: none;
+}
+
+.loading {
+    text-align: center;
+    padding: 25px;
+    color: #65758a;
+}
+
+@media(max-width:850px) {
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+    .content-grid { grid-template-columns: 1fr; }
+}
+
+@media(max-width:480px) {
+    .stats-grid { gap: 10px; }
+    .stat-card { padding: 14px; }
+    .stat-number { font-size: 24px; }
+    .header-title h1 { font-size: 18px; }
+    .page-heading h2 { font-size: 21px; }
+}
+
+@media print {
+    @page { size: A4 landscape; margin: 15mm; }
+
+    body {
+        background: white !important;
+        color: black;
+    }
+
+    header {
+        background: white !important;
+        color: black;
+        border-bottom: 2px solid #222;
+        box-shadow: none;
+        padding: 5px 0 12px;
+    }
+
+    .header-title p { color: #333; }
+
+    .back-btn, .filter-box, .no-print, #statusBox {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 15px 0;
+        padding: 0;
+    }
+
+    .page-heading {
+        color: black;
+        margin: 15px 0;
+    }
+
+    .page-heading p { color: #333; }
+
+    .panel, .stat-card, .table-panel {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+    }
+
+    .stats-grid { grid-template-columns: repeat(4,1fr); }
+    .content-grid { grid-template-columns: 1.5fr 1fr; }
+
+    th {
+        background: #e5e5e5 !important;
+        color: black !important;
+    }
+
+    .report-footer {
+        display: block;
+        margin-top: 35px;
+        page-break-inside: avoid;
+    }
+
+    .signature {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .signature div {
+        width: 40%;
+        line-height: 1.7;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="header-title">
+            <h1>PHÒNG HỒ CHÍ MINH</h1>
+            <p>THỐNG KÊ - TỔNG HỢP SỐ LIỆU</p>
+        </div>
+        <a class="back-btn" href="index.html">← Trang chủ</a>
+    </div>
+</header>
+
+<main class="container">
+
+    <div class="page-heading">
+        <h2>BÁO CÁO THỐNG KÊ</h2>
+        <p>Tổng hợp tình hình hoạt động và kết quả thực hiện nhiệm vụ</p>
+    </div>
+
+    <div id="statusBox" class="status">
+        Đang kết nối và tải dữ liệu từ hệ thống...
+    </div>
+
+    <div class="filter-box no-print">
+        <div class="filter-group">
+            <label>Tháng thống kê</label>
+            <select id="monthFilter">
+                <option value="all">Cả năm</option>
+                <option value="0">Tháng 1</option>
+                <option value="1">Tháng 2</option>
+                <option value="2">Tháng 3</option>
+                <option value="3">Tháng 4</option>
+                <option value="4">Tháng 5</option>
+                <option value="5">Tháng 6</option>
+                <option value="6">Tháng 7</option>
+                <option value="7">Tháng 8</option>
+                <option value="8">Tháng 9</option>
+                <option value="9">Tháng 10</option>
+                <option value="10">Tháng 11</option>
+                <option value="11">Tháng 12</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Năm thống kê</label>
+            <select id="yearFilter"></select>
+        </div>
+
+        <button class="btn-primary" onclick="updateStatistics()">Thống kê</button>
+        <button class="btn-green" onclick="exportExcel()">Xuất Excel</button>
+        <button class="btn-red" onclick="window.print()">In / Xuất PDF</button>
+        <button class="btn-gold" onclick="loadAllData()">Tải lại dữ liệu</button>
+    </div>
+
+    <div id="reportArea">
+
+        	<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">TỔNG TÀI LIỆU</div>
+        <div class="stat-number" id="totalDocs">...</div>
+        <small id="docsNote">Đang tải dữ liệu</small>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-label">KẾ HOẠCH HOẠT ĐỘNG</div>
+        <div class="stat-number" id="totalPlans">...</div>
+        <small id="plansNote">Đang tải dữ liệu</small>
+    </div>
+
+    <div class="stat-card">
+    <div class="stat-label">HÌNH ẢNH - VIDEO</div>
+    <div class="stat-number" id="totalMedia">...</div>
+    <small id="mediaNote">Đang tải dữ liệu</small>
+</div>   <div class="stat-card">
+        <div class="stat-label">BÁO CÁO</div>
+        <div class="stat-number" id="totalReports">...</div>
+        <small id="reportsNote">Đang tải dữ liệu</small>
+    </div>
+</div>        <div class="content-grid">
+            <div class="panel">
+                <h3>BIỂU ĐỒ TÀI LIỆU VÀ KẾ HOẠCH THEO THÁNG</h3>
+                <div class="chart-wrap">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>THỐNG KÊ TÀI LIỆU THEO DANH MỤC</h3>
+                <div class="chart-wrap">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-panel">
+            <div class="table-heading">
+                <h3>BẢNG THỐNG KÊ SỐ LIỆU CHI TIẾT</h3>
+            </div>
+
+            <div class="table-scroll">
+                <table id="statisticsTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>NỘI DUNG THỐNG KÊ</th>
+                            <th>SỐ LƯỢNG</th>
+                            <th>ĐƠN VỊ TÍNH</th>
+                            <th>GHI CHÚ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statisticsBody">
+                        <tr><td colspan="5" class="loading">Đang tải dữ liệu...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="note">
+                Số liệu được tổng hợp trực tiếp từ Google Sheets của kho tài liệu
+                và kế hoạch hoạt động. Các nội dung chưa triển khai không được tính
+                vào tổng số liệu.
+            </p>
+        </div>
+
+        <div class="report-footer">
+            <p id="reportDate" style="text-align:right;font-style:italic"></p>
+
+            <div class="signature">
+                <div>
+                    <strong>NGƯỜI LẬP BÁO CÁO</strong>
+                    <br><i>(Ký, ghi rõ họ tên)</i>
+<br><br><br><br>               </div>
+
+                <div>
+                    <strong>CHỈ HUY PHÊ DUYỆT</strong>
+                    <br><i>(Ký, ghi rõ họ tên)</i>
+                    <br><br><br><br>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="no-print" style="text-align:center; margin-top:25px;">
+        <a href="baocao.html"
+           class="back-btn"
+           style="display:inline-block; padding:13px 28px;">
+            QUẢN LÝ BÁO CÁO
+        </a>
+    </div>
+
+</main><script>
+/* =========================================
+   ĐỊA CHỈ GOOGLE APPS SCRIPT
+========================================= */
+
+// Kho tài liệu
+const TAILIEU_API =
+"https://script.google.com/macros/s/AKfycbwgRRXstEmITDsXwxrV_sScxHSx6ewYzp38I8LfB0EWweMxXOT7xjVoZ-vwEPtmaNPU5A/exec";
+
+// Kế hoạch hoạt động
+const KEHOACH_API =
+
+"https://script.google.com/macros/s/AKfycbyBmTTnc6DVtVKrTX5vxlBqOk1HfjG8FeE4jFJGVbmmpBgVL5maLezMjNPN6U6ksVU0mA/exec";
+
+
+// Báo cáo
+const BAOCAO_API =
+"https://script.google.com/macros/s/AKfycbzuXl_jo0SC3m7IfuorvU7MFR6zZ5FKw5GrzOPFle1fXRam_w1sDbdLn5biHsDSyHVOgg/exec";// Hình ảnh - Video
+const MEDIA_API =
+"https://script.google.com/macros/s/AKfycbyXQAQwDqsFsAw4BrY7MCC5tlJ19uuXyZGbZEGTAchy8RM4Yk3c_l_zR9sye429CWi1Xg/exec";
+/* =========================================
+   DỮ LIỆU
+========================================= */
+
+let documents = [];
+let plans = [];
+
+let monthlyChart = null;
+let categoryChart = null;
+
+const categories = [
+    { id: "01_VAN_KIEN_TAI_LIEU", name: "Văn kiện - Tài liệu" },
+    { id: "02_LICH_SU_TRUYEN_THONG", name: "Lịch sử - Truyền thống" },
+    { id: "03_SACH_BAO_TAP_CHI", name: "Sách - Báo - Tạp chí" },
+    { id: "04_HINH_ANH", name: "Hình ảnh" },
+    { id: "05_VIDEO", name: "Video" },
+    { id: "06_TAI_LIEU_KHAC", name: "Tài liệu khác" }
+];
+
+const categoryNames = categories.map(item => item.name);
+
+const monthNames = [
+    "Tháng 1","Tháng 2","Tháng 3","Tháng 4",
+    "Tháng 5","Tháng 6","Tháng 7","Tháng 8",
+    "Tháng 9","Tháng 10","Tháng 11","Tháng 12"
+];
+
+
+/* =========================================
+   KHỞI TẠO NĂM THỐNG KÊ
+========================================= */
+
+function initYearFilter() {
+    const select = document.getElementById("yearFilter");
+    const currentYear = new Date().getFullYear();
+
+    select.innerHTML = "";
+
+    for (let year = currentYear; year >= currentYear - 5; year--) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        select.appendChild(option);
+    }
+}
+
+
+/* =========================================
+   ĐỌC DỮ LIỆU JSONP TỪ APPS SCRIPT
+========================================= */
+
+function requestJSONP(apiUrl, action) {
+    return new Promise((resolve, reject) => {
+        const callbackName =
+            "jsonp_" + Date.now() + "_" +
+            Math.random().toString(36).substring(2, 9);
+
+        const script = document.createElement("script");
+
+        let finished = false;
+
+        const timer = setTimeout(() => {
+            finish(new Error("Quá thời gian chờ dữ liệu."));
+        }, 25000);
+
+        function finish(error, result) {
+            if (finished) return;
+
+            finished = true;
+            clearTimeout(timer);
+
+            try {
+                delete window[callbackName];
+            } catch(e) {
+                window[callbackName] = undefined;
+            }
+
+            if (script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
+
+            if (error) reject(error);
+            else resolve(result);
+        }
+
+        window[callbackName] = function(result) {
+            try {
+                if (typeof result === "string") {
+                    result = JSON.parse(result);
+                }
+
+                finish(null, result);
+            } catch(error) {
+                finish(error);
+            }
+        };
+
+        script.onerror = function() {
+            finish(new Error("Không thể kết nối Apps Script."));
+        };
+
+        script.src =
+            apiUrl +
+            "?action=" + encodeURIComponent(action) +
+            "&callback=" + encodeURIComponent(callbackName) +
+            "&_=" + Date.now();
+
+        document.body.appendChild(script);
+    });
+}
+
+
+/* =========================================
+   CHUẨN HÓA DỮ LIỆU TRẢ VỀ
+========================================= */
+
+function getArray(result) {
+    if (Array.isArray(result)) return result;
+
+    if (result && Array.isArray(result.documents)) {
+        return result.documents;
+    }
+
+    if (result && Array.isArray(result.plans)) {
+        return result.plans;
+    }
+
+    if (result && Array.isArray(result.data)) {
+        return result.data;
+    }
+
+    return [];
+}/* =========================================
+   TẢI TỔNG SỐ BÁO CÁO
+========================================= */
+
+async function loadReportCount() {
+    const totalElement = document.getElementById("totalReports");
+    const noteElement = document.getElementById("reportsNote");
+
+    try {
+        const result = await requestJSONP(BAOCAO_API, "reports");
+
+        if (!result || result.success === false) {
+            throw new Error("Không lấy được dữ liệu báo cáo.");
+        }
+
+        const total = Number.isFinite(Number(result.total))
+            ? Number(result.total)
+            : (Array.isArray(result.reports) ? result.reports.length : 0);
+
+        totalElement.textContent = formatNumber(total);
+        noteElement.textContent = "Tổng số báo cáo đã lưu";
+    } catch (error) {
+        console.error("Lỗi tải báo cáo:", error);
+        totalElement.textContent = "--";
+        noteElement.textContent = "Không tải được dữ liệu";
+    }
+}
+
+
+/* =========================================
+   TẢI TỔNG SỐ HÌNH ẢNH - VIDEO
+========================================= */
+
+async function loadMediaCount() {
+    const totalElement = document.getElementById("totalMedia");
+    const noteElement = document.getElementById("mediaNote");
+
+    try {
+        const result = await requestJSONP(MEDIA_API, "media");
+
+        if (!result || result.success === false) {
+            throw new Error("Không lấy được dữ liệu hình ảnh - video.");
+        }
+
+        const total = Number.isFinite(Number(result.total))
+            ? Number(result.total)
+            : 0;
+
+        totalElement.textContent = formatNumber(total);
+        noteElement.textContent = "Tổng số hình ảnh, video đã lưu";
+
+    } catch (error) {
+        console.error("Lỗi tải hình ảnh - video:", error);
+        totalElement.textContent = "--";
+        noteElement.textContent = "Không tải được dữ liệu";
+    }
+}/* =========================================
+   TẢI DỮ LIỆU TỪ HAI NGUỒN
+========================================= */
+
+async function loadAllData() {
+    const status = document.getElementById("statusBox");
+
+    status.className = "status";
+    status.textContent = "Đang tải dữ liệu từ Google Sheets...";
+
+    document.getElementById("totalDocs").textContent = "...";
+    document.getElementById("totalPlans").textContent = "...";
+
+    const results = await Promise.allSettled([
+        requestJSONP(TAILIEU_API, "list"),
+        requestJSONP(KEHOACH_API, "plans")
+    ]);
+
+    let errors = [];
+
+    if (results[0].status === "fulfilled") {
+        documents = getArray(results[0].value);
+    } else {
+        documents = [];
+        errors.push("Kho tài liệu");
+        console.error("Lỗi tải tài liệu:", results[0].reason);
+    }
+
+    if (results[1].status === "fulfilled") {
+        plans = getArray(results[1].value);
+    } else {
+        plans = [];
+        errors.push("Kế hoạch");
+        console.error("Lỗi tải kế hoạch:", results[1].reason);
+    }
+
+    if (errors.length) {
+        status.className = "status error";
+        status.textContent =
+            "Không tải được dữ liệu: " + errors.join(", ") +
+            ". Vui lòng kiểm tra địa chỉ Apps Script và quyền truy cập.";
+    } else {
+        status.className = "status success";
+        status.textContent =
+            "Đã tải dữ liệu thành công: " +
+            documents.length + " tài liệu và " +
+            plans.length + " kế hoạch.";
+    }
+
+    updateStatistics();
+}
+
+
+/* =========================================
+   XỬ LÝ NGÀY THÁNG
+========================================= */
+
+function parseDate(value) {
+    if (!value) return null;
+
+    if (value instanceof Date && !isNaN(value)) {
+        return value;
+    }
+
+    let text = String(value).trim();
+
+    if (!text) return null;
+
+    // Định dạng yyyy-MM-dd hoặc yyyy-MM-ddTHH:mm:ss
+    let match = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+
+    if (match) {
+        const date = new Date(
+            Number(match[1]),
+            Number(match[2]) - 1,
+            Number(match[3])
+        );
+
+        return isNaN(date) ? null : date;
+    }
+
+    // Định dạng dd/MM/yyyy
+    match = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+
+    if (match) {
+        const date = new Date(
+            Number(match[3]),
+            Number(match[2]) - 1,
+            Number(match[1])
+        );
+
+        return isNaN(date) ? null : date;
+    }
+
+    const date = new Date(text);
+
+    return isNaN(date) ? null : date;
+}
+
+
+/* =========================================
+   LẤY NGÀY THỐNG KÊ
+========================================= */
+
+
+/* =========================================
+   LẤY NGÀY THỐNG KÊ
+========================================= */
+
+// Tài liệu: thống kê theo ngày tạo/lưu tài liệu.
+function getDocumentDate(item) {
+    return parseDate(
+        item.date ||
+        item.createdAt ||
+        item.ngayTao ||
+        item.NgayTao
+    );
+}
+
+// Kế hoạch: thống kê theo ngày kế hoạch.
+function getPlanDate(item) {
+    return parseDate(
+        item.startDate ||
+        item.date ||
+        item.ngay ||
+        item.Ngay ||
+        item.createdAt ||
+        item.NgayTao
+    );
+}
+
+
+function isInSelectedPeriod(date, year, month) {
+    if (!date) return false;
+
+    if (date.getFullYear() !== Number(year)) return false;
+
+    if (month !== "all" &&
+        date.getMonth() !== Number(month)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+/* =========================================
+   LỌC DỮ LIỆU
+========================================= */
+
+function getFilteredData() {
+    const year = document.getElementById("yearFilter").value;
+    const month = document.getElementById("monthFilter").value;
+
+    const filteredDocs = documents.filter(item =>
+        isInSelectedPeriod(getDocumentDate(item), year, month)
+    );
+
+    const filteredPlans = plans.filter(item =>
+        isInSelectedPeriod(getPlanDate(item), year, month)
+    );
+
+    return {
+        filteredDocs,
+        filteredPlans,
+        year,
+        month
+    };
+}
+
+
+/* =========================================
+   ĐẾM THEO DANH MỤC
+========================================= */
+
+function countByCategory(items) {
+    return categories.map(category => {
+        return items.filter(item =>
+            String(item.category || "").trim() === category.id
+        ).length;
+    });
+}
+
+
+/* =========================================
+   HIỂN THỊ THỐNG KÊ
+========================================= */
+
+function formatNumber(value) {
+    return Number(value).toLocaleString("vi-VN");
+}
+
+function updateStatistics() {
+    const {
+        filteredDocs,
+        filteredPlans,
+        year,
+        month
+    } = getFilteredData();
+// Tổng tài liệu trong toàn bộ kho, giống trang tailieu.html
+document.getElementById("totalDocs").textContent =
+    formatNumber(documents.length);
+
+document.getElementById("totalPlans").textContent =
+    formatNumber(filteredPlans.length);
+
+document.getElementById("docsNote").textContent =
+    "Tổng số tài liệu hiện có trong kho";
+    document.getElementById("plansNote").textContent =
+        "Theo ngày kế hoạch";
+
+    renderCharts(filteredDocs, filteredPlans);
+    renderTable(filteredDocs, filteredPlans);
+
+    document.getElementById("reportDate").textContent =
+        "Ngày lập báo cáo: " +
+        new Date().toLocaleDateString("vi-VN") +
+        " | Năm thống kê: " + year +
+        (month === "all" ? "" : " | " + monthNames[Number(month)]);
+}
+
+
+/* =========================================
+   VẼ BIỂU ĐỒ
+========================================= */
+
+function renderCharts(filteredDocs, filteredPlans) {
+    const year = document.getElementById("yearFilter").value;
+    const month = document.getElementById("monthFilter").value;
+
+    const docMonthly = Array(12).fill(0);
+    const planMonthly = Array(12).fill(0);
+
+    filteredDocs.forEach(item => {
+        const date = getDocumentDate(item);
+        if (date && date.getFullYear() === Number(year)) {
+            docMonthly[date.getMonth()]++;
+        }
+    });
+
+    filteredPlans.forEach(item => {
+        const date = getPlanDate(item);
+        if (date && date.getFullYear() === Number(year)) {
+            planMonthly[date.getMonth()]++;
+        }
+    });
+
+    if (month !== "all") {
+        for (let i = 0; i < 12; i++) {
+            if (i !== Number(month)) {
+                docMonthly[i] = 0;
+                planMonthly[i] = 0;
+            }
+        }
+    }
+
+    if (monthlyChart) monthlyChart.destroy();
+
+    monthlyChart = new Chart(
+        document.getElementById("monthlyChart"),
+        {
+            type: "bar",
+            data: {
+                labels: monthNames,
+                datasets: [
+                    {
+                        label: "Tài liệu",
+                        data: docMonthly,
+                        backgroundColor: "#0755a5",
+                        borderRadius: 4
+                    },
+                    {
+                        label: "Kế hoạch",
+                        data: planMonthly,
+                        backgroundColor: "#e5bd54",
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        }
+    );
+
+    const categoryCounts = countByCategory(documents);    if (categoryChart) categoryChart.destroy();
+
+    categoryChart = new Chart(
+        document.getElementById("categoryChart"),
+        {
+            type: "doughnut",
+            data: {
+                labels: categoryNames,
+                datasets: [{
+                    data: categoryCounts,
+                    backgroundColor: [
+    "#ef7d42",
+    "#7659c9",
+    "#159d9a",
+    "#dfa12e",
+    "#d34f86",
+    "#579653"
+],                borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "bottom",
+                        labels: {
+                            boxWidth: 12,
+                            padding: 12
+                        }
+                    }
+                }
+            }
+        }
+    );
+}
+
+
+/* =========================================
+   BẢNG THỐNG KÊ CHI TIẾT
+========================================= */
+
+function renderTable(filteredDocs, filteredPlans) {
+    const body = document.getElementById("statisticsBody");
+    const rows = [];
+
+    rows.push([
+        "Tổng số tài liệu",
+        filteredDocs.length,
+        "Tài liệu",
+        "Kho tài liệu"
+    ]);
+
+    categories.forEach(category => {
+    const count = filteredDocs.filter(item =>
+        String(item.category || "").trim() === category.id
+    ).length;
+
+    rows.push([
+        "Tài liệu - " + category.name,
+        count,
+        "Tài liệu",
+        "Thư mục: " + category.id
+    ]);
+});
+
+    rows.push([
+        "Tổng số kế hoạch",
+        filteredPlans.length,
+        "Kế hoạch",
+        "Kho kế hoạch"
+    ]);
+
+    const planCategories = {};
+
+    filteredPlans.forEach(item => {
+        const name = String(item.category || "Chưa phân loại").trim();
+        planCategories[name] = (planCategories[name] || 0) + 1;
+    });
+
+    Object.keys(planCategories).sort().forEach(name => {
+        rows.push([
+            "Kế hoạch - " + name,
+            planCategories[name],
+            "Kế hoạch",
+            "Theo danh mục"
+        ]);
+    });
+
+    body.innerHTML = rows.map((row, index) => `
+        <tr>
+            <td>${index + 1}</td>
+            <td>${escapeHTML(row[0])}</td>
+            <td>${formatNumber(row[1])}</td>
+            <td>${escapeHTML(row[2])}</td>
+            <td>${escapeHTML(row[3])}</td>
+        </tr>
+    `).join("") + `
+        <tr class="total-row">
+            <td colspan="2">TỔNG CỘNG TÀI LIỆU VÀ KẾ HOẠCH</td>
+            <td>${formatNumber(filteredDocs.length + filteredPlans.length)}</td>
+            <td>Đầu mục</td>
+            <td>Hai nguồn dữ liệu</td>
+        </tr>
+    `;
+}
+
+
+/* =========================================
+   XUẤT EXCEL
+========================================= */
+
+function exportExcel() {
+    const year = document.getElementById("yearFilter").value;
+    const month = document.getElementById("monthFilter").value;
+
+    const table = document.getElementById("statisticsTable").outerHTML;
+
+    const title = `
+        <h2>PHÒNG HỒ CHÍ MINH</h2>
+        <h3>BÁO CÁO THỐNG KÊ</h3>
+        <p>Năm ${year}
+        ${month === "all" ? "" : " - " + monthNames[Number(month)]}
+        </p>
+    `;
+
+    const html = `
+        <html>
+        <head><meta charset="UTF-8"></head>
+        <body>
+        ${title}
+        ${table}
+        <p>Ngày lập báo cáo: ${new Date().toLocaleDateString("vi-VN")}</p>
+        </body>
+        </html>
+    `;
+
+    const blob = new Blob(
+        ["\ufeff", html],
+        { type: "application/vnd.ms-excel;charset=utf-8;" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "Bao_cao_thong_ke_" + year + ".xls";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
+}
+
+
+/* =========================================
+   HÀM BỔ TRỢ
+========================================= */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+
+/* =========================================
+   KHỞI CHẠY
+========================================= */
+
+document.getElementById("monthFilter")
+    .addEventListener("change", updateStatistics);
+
+document.getElementById("yearFilter")
+    .addEventListener("change", updateStatistics);
+
+initYearFilter();
+loadAllData();
+loadReportCount();
+loadMediaCount();
+
+</script>
+
+</body>
+</html>
